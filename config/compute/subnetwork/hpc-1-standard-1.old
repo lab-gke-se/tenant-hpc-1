@@ -1,0 +1,20 @@
+enableFlowLogs: false
+# gatewayAddress: 10.10.1.1
+ipCidrRange: 10.2.0.0/16
+logConfig:
+  aggregationInterval: INTERVAL_5_SEC
+  enable: false
+  flowSampling: 0.5
+  metadata: INCLUDE_ALL_METADATA
+name: hpc-1-standard-1
+network: https://www.googleapis.com/compute/v1/projects/lab-gke-se/global/networks/hpc-1
+privateIpGoogleAccess: true
+privateIpv6GoogleAccess: DISABLE_GOOGLE_ACCESS
+purpose: PRIVATE
+region: https://www.googleapis.com/compute/v1/projects/lab-gke-se/regions/us-east4
+secondaryIpRanges:
+- ipCidrRange: 240.2.64.0/19
+  rangeName: gke-pods
+- ipCidrRange: 240.2.36.0/22
+  rangeName: gke-services
+stackType: IPV4_ONLY

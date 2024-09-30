@@ -1,0 +1,14 @@
+steps:
+- name: 'gcr.io/cloud-builders/docker'
+  args: [
+    'build',
+    '--tag=us-central1-docker.pkg.dev/${PROJECT_ID}/hpc-1-images/worker-k8',
+    '.'
+    ]
+- name: 'us-central1-docker.pkg.dev/${PROJECT_ID}/hpc-1-images/worker-k8'
+  # args: ['version']
+substitutions: []
+images: ['us-central1-docker.pkg.dev/${PROJECT_ID}/hpc-1-images/worker-k8']
+serviceAccount: 'projects/lab-gke-se/serviceAccounts/hpc-1-cloudbuild@lab-gke-se.iam.gserviceaccount.com'
+options:
+  logging: CLOUD_LOGGING_ONLY

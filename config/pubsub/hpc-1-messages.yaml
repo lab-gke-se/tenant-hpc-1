@@ -1,0 +1,2 @@
+name: hpc-1-messages
+kmsKeyName: ${kms_key}

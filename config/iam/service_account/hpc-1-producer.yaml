@@ -1,0 +1,4 @@
+name: hpc-1-producer
+project: lab-gke-se
+display_name: HPC 1 Producer Function Service Account
+description: HPC 1 Producer Function Service Account

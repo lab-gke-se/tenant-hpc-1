@@ -1,0 +1,15 @@
+createTime: '2024-05-31T11:11:42.270010708Z'
+destroyScheduledDuration: 2592000s
+name: projects/lab-gke-se/locations/us-east4/keyRings/hpc-1/cryptoKeys/hpc-1
+primary:
+  algorithm: GOOGLE_SYMMETRIC_ENCRYPTION
+  createTime: '2024-05-31T11:11:42.270010708Z'
+  destroyEventTime: '2024-06-30T13:44:35.318816Z'
+  generateTime: '2024-05-31T11:11:42.270010708Z'
+  name: projects/lab-gke-se/locations/us-east4/keyRings/hpc-1/cryptoKeys/hpc-1/cryptoKeyVersions/1
+  protectionLevel: HSM
+  state: DESTROYED
+purpose: ENCRYPT_DECRYPT
+versionTemplate:
+  algorithm: GOOGLE_SYMMETRIC_ENCRYPTION
+  protectionLevel: HSM

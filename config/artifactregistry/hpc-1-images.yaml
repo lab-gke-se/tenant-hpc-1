@@ -1,0 +1,6 @@
+cleanupPolicyDryRun: true
+dockerConfig: {}
+format: DOCKER
+mode: STANDARD_REPOSITORY
+name: projects/lab-gke-se/locations/us-central1/repositories/hpc-1-images
+kmsKeyName: ${kms_key_usc1}

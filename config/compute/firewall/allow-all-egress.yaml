@@ -1,0 +1,12 @@
+name: hpc-1-allow-all-egress
+network: projects/lab-gke-se/global/networks/hpc-1
+disabled: false
+direction: EGRESS
+priority: 990
+allowed:
+- IPProtocol: all
+destinationRanges:
+- 0.0.0.0/0
+logConfig:
+  enable: false
+  metadata: INCLUDE_ALL_METADATA

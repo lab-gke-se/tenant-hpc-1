@@ -1,0 +1,51 @@
+- autoscaling:
+    enabled: true
+    locationPolicy: BALANCED
+    maxNodeCount: 1000
+  config:
+    bootDiskKmsKey: ${kms_key}
+    diskSizeGb: 100
+    diskType: pd-balanced
+    imageType: COS_CONTAINERD
+    machineType: e2-small
+    metadata:
+      disable-legacy-endpoints: 'true'
+    oauthScopes:
+    - https://www.googleapis.com/auth/userinfo.email
+    - https://www.googleapis.com/auth/cloud-platform
+    reservationAffinity:
+      consumeReservationType: NO_RESERVATION
+    serviceAccount: ${service_account}
+    shieldedInstanceConfig:
+      enableIntegrityMonitoring: true
+      enableSecureBoot: true
+    taints:
+    - effect: NO_SCHEDULE
+      key: cloud.google.com/gke-quick-remove
+      value: 'true'
+    windowsNodeConfig: {}
+    # workloadMetadataConfig:
+    #   mode: GKE_METADATA
+  etag: 9a22c39c-2b89-4011-bb2e-ea653aeb9b98
+  initialNodeCount: 1
+  instanceGroupUrls:
+  - https://www.googleapis.com/compute/v1/projects/lab-gke-se/zones/us-east4-b/instanceGroupManagers/gk3-tenant-gke-private-c-default-pool-1b600ed1-grp
+  locations:
+  - us-east4-b
+  management:
+    autoRepair: true
+    autoUpgrade: true
+  maxPodsConstraint:
+    maxPodsPerNode: '32'
+  name: default-pool
+  networkConfig:
+    enablePrivateNodes: true
+    podIpv4CidrBlock: 240.1.64.0/19
+    podRange: gke-pods
+  podIpv4CidrSize: 26
+  selfLink: https://container.googleapis.com/v1/projects/lab-gke-se/locations/us-east4/clusters/tenant-gke-private-cluster/nodePools/default-pool
+  status: RUNNING
+  upgradeSettings:
+    maxSurge: 1
+    strategy: SURGE
+  version: 1.29.6-gke.1038001

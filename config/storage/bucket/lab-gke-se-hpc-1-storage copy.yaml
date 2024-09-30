@@ -1,0 +1,13 @@
+default_kms_key: ${kms_key_usc1}
+default_storage_class: STANDARD
+location: US-CENTRAL1
+location_type: region
+metageneration: 1
+name: lab-gke-se-hpc-1-storage
+public_access_prevention: enforced
+soft_delete_policy:
+  effectiveTime: '2024-09-26T15:25:09.554000+00:00'
+  retentionDurationSeconds: '604800'
+storage_url: gs://lab-gke-se-hpc-1-storage/
+uniform_bucket_level_access: true
+versioning_enabled: true
