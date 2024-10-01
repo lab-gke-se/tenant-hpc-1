@@ -6,11 +6,11 @@ from datetime import datetime
 from google.cloud import pubsub_v1
 
 project_id = "lab-gke-se"
-subscription_id = "hpc-1-controller"
+subscription_id = "hpc-1-messages"
 
-print("Welcome to Google Kubernetes Engine")
+print("Message Queue - Processing")
 
-timeout = 5.0
+timeout = 120
 
 subscriber = pubsub_v1.SubscriberClient()
 # The `subscription_path` method creates a fully qualified identifier
@@ -35,7 +35,9 @@ with subscriber:
     try:
         # When `timeout` is not set, result() will block indefinitely,
         # unless an exception is encountered first.
-        streaming_pull_future.result()
+        streaming_pull_future.result(timeout=timeout)
     except TimeoutError:
         streaming_pull_future.cancel()  # Trigger the shutdown.
         streaming_pull_future.result()  # Block until the shutdown is complete.
+
+print("Message Queue - Finished")

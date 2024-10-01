@@ -6,7 +6,7 @@ module "cluster" {
   # Terraform variables
   project                  = local.project
   deletion_protection      = false
-  remove_default_node_pool = true
+  remove_default_node_pool = false
 
   # GKE Variables
   name                           = each.value.name

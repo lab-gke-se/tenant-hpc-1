@@ -8,6 +8,9 @@ projectId: lab-gke-se
 projectNumber: '52991355109'
 iamPolicy:
   bindings:
+  - role: roles/pubsub.subscriber
+    members: 
+    - serviceAccount:hpc-1-nodes@lab-gke-se.iam.gserviceaccount.com
   - role: roles/artifactregistry.reader
     members: 
     - serviceAccount:hpc-1-nodes@lab-gke-se.iam.gserviceaccount.com

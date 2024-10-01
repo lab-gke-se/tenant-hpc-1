@@ -21,27 +21,27 @@ locals {
       environment_variables : {}
       labels : {}
     }
-    worker = {
-      name                  = "hpc-1-worker"
-      description           = "Worker Cloud Function"
-      service_account       = "hpc-1-worker@lab-gke-se.iam.gserviceaccount.com"
-      build_service_account = "projects/lab-gke-se/serviceAccounts/hpc-1-cloudbuild@lab-gke-se.iam.gserviceaccount.com"
-      available_memory_mb   = 256
-      runtime               = "python311"
-      event_trigger = {
-        event_type = "google.pubsub.topic.publish"
-        resource   = "hpc-1-messages"
-      }
-      entry_point                   = "event_handler"
-      kms_key_id                    = local.substitutions.kms_key_usc1
-      docker_repository             = "projects/lab-gke-se/locations/us-central1/repositories/hpc-1-images"
-      ingress_settings              = "ALLOW_INTERNAL_ONLY"
-      vpc_connector                 = null #var.vpc_connector
-      vpc_connector_egress_settings = null # var.vpc_connector == null ? null : "ALL_TRAFFIC"
-      source_archive_bucket         = module.storage_source.name
-      environment_variables : {}
-      labels : {}
-    }
+    # worker = {
+    #   name                  = "hpc-1-worker"
+    #   description           = "Worker Cloud Function"
+    #   service_account       = "hpc-1-worker@lab-gke-se.iam.gserviceaccount.com"
+    #   build_service_account = "projects/lab-gke-se/serviceAccounts/hpc-1-cloudbuild@lab-gke-se.iam.gserviceaccount.com"
+    #   available_memory_mb   = 256
+    #   runtime               = "python311"
+    #   event_trigger = {
+    #     event_type = "google.pubsub.topic.publish"
+    #     resource   = "hpc-1-messages"
+    #   }
+    #   entry_point                   = "event_handler"
+    #   kms_key_id                    = local.substitutions.kms_key_usc1
+    #   docker_repository             = "projects/lab-gke-se/locations/us-central1/repositories/hpc-1-images"
+    #   ingress_settings              = "ALLOW_INTERNAL_ONLY"
+    #   vpc_connector                 = null #var.vpc_connector
+    #   vpc_connector_egress_settings = null # var.vpc_connector == null ? null : "ALL_TRAFFIC"
+    #   source_archive_bucket         = module.storage_source.name
+    #   environment_variables : {}
+    #   labels : {}
+    # }
   }
 }
 

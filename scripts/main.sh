@@ -33,4 +33,10 @@ gcloud services vpc-peerings connect --network=hpc-1 --project=lab-gke-se --rang
 gcloud container clusters create hpc-1-standard-4 --location=us-central1-a --network=hpc-1 --addons=ParallelstoreCsiDriver --cluster-version=1.29 --release-ch
 annel rapid
 
+gcloud alpha parallelstore instances create hpc-1-storage --capacity-gib=16000 --location=us-central1-a --network=hpc-1 --project=lab-gke-se
+
+
+
+
+
 gcloud container clusters update hpc-1-standard-3 --location=us-central1-a --update-addons=ParallelstoreCsiDriver=ENABLED

@@ -5,3 +5,6 @@ module "queue" {
   project = local.project
   name    = each.value.name
 }
+
+
+# Add subscription for message pulling
