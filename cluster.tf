@@ -63,14 +63,14 @@ module "cluster" {
   depends_on = [module.project_iam_policy_members]
 }
 
-module "node_pools" {
-  for_each = local.cluster_configs
-  # source   = "github.com/lab-gke-se/modules//gke/node_pools?ref=0.0.3"
-  source = "../modules/gke/node_pools"
+# module "node_pools" {
+#   for_each = local.cluster_configs
+#   # source   = "github.com/lab-gke-se/modules//gke/node_pools?ref=0.0.3"
+#   source = "../modules/gke/node_pools"
 
-  # Terraform / cluster variables
-  project   = local.project
-  cluster   = module.cluster[each.key].id
-  location  = each.value.location
-  nodePools = try(each.value.nodePools, null)
-}
+#   # Terraform / cluster variables
+#   project   = local.project
+#   cluster   = module.cluster[each.key].id
+#   location  = each.value.location
+#   nodePools = try(each.value.nodePools, null)
+# }
