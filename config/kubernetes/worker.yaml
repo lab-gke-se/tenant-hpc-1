@@ -1,0 +1,10 @@
+apiVersion: v1
+kind: Pod
+metadata: 
+  name: worker
+  labels: 
+    app: test
+spec:
+  containers:
+  - name: worker
+    image: us-central1-docker.pkg.dev/lab-gke-se/hpc-1-images/hpc-1-worker-k8:v0.0.1

@@ -1,0 +1,74 @@
+namespace
+
+---
+
+service account 
+
+---
+
+Permission service account
+
+---
+
+Enable storage mounting
+
+apiVersion: v1
+kind: Pod
+metadata:
+  annotations:
+    gke-gcsfuse/volumes: "true"
+    gke-gcsfuse/cpu-limit: "10"
+    gke-gcsfuse/memory-limit: 10Gi
+    gke-gcsfuse/ephemeral-storage-limit: 1Ti
+    gke-gcsfuse/cpu-request: 500m
+    gke-gcsfuse/memory-request: 1Gi
+    gke-gcsfuse/ephemeral-storage-request: 50Gi
+
+
+apiVersion: v1
+kind: Pod
+metadata:
+  annotations:
+    gke-gcsfuse/volumes: "true"
+spec:
+  containers:
+  - name: gke-gcsfuse-sidecar
+    image: PRIVATE_REGISTRY/gcs-fuse-csi-driver-sidecar-mounter:PRIVATE_IMAGE_TAG
+  - name: main # your main workload container.
+
+
+---
+
+apiVersion: v1
+kind: PersistentVolume
+metadata:
+  name: gcs-fuse-csi-pv
+spec:
+  accessModes:
+  - ReadWriteMany
+  capacity:
+    storage: 5Gi
+  storageClassName: example-storage-class
+  mountOptions:
+    - implicit-dirs
+  csi:
+    driver: gcsfuse.csi.storage.gke.io
+    volumeHandle: BUCKET_NAME
+    volumeAttributes:
+      gcsfuseLoggingSeverity: warning
+
+---
+
+apiVersion: v1
+kind: PersistentVolumeClaim
+metadata:
+  name: gcs-fuse-csi-static-pvc
+  namespace: NAMESPACE
+spec:
+  accessModes:
+  - ReadWriteMany
+  resources:
+    requests:
+      storage: 5Gi
+  volumeName: gcs-fuse-csi-pv
+  storageClassName: example-storage-class

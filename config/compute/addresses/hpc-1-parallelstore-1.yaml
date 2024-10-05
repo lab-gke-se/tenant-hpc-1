@@ -1,0 +1,14 @@
+address: 10.19.136.0
+addressType: INTERNAL
+creationTimestamp: '2024-09-27T10:29:46.264-07:00'
+description: Parallelstore VPC Peering
+id: '6611024526515590501'
+kind: compute#address
+labelFingerprint: 42WmSpB8rSM=
+name: hpc-1-parallelstore-1
+network: https://www.googleapis.com/compute/v1/projects/lab-gke-se/global/networks/hpc-1
+networkTier: PREMIUM
+prefixLength: 24
+purpose: VPC_PEERING
+selfLink: https://www.googleapis.com/compute/v1/projects/lab-gke-se/global/addresses/hpc-1-parallelstore-1
+status: RESERVED

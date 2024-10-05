@@ -1,0 +1,12 @@
+name: hpc-1-allow-all-ingress
+network: projects/lab-gke-se/global/networks/hpc-1
+disabled: false
+priority: 990
+direction: INGRESS
+allowed:
+- IPProtocol: all
+sourceRanges:
+- 0.0.0.0/0
+logConfig:
+  enable: true
+  metadata: INCLUDE_ALL_METADATA

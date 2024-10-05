@@ -1,0 +1,10 @@
+createTime: '2024-07-23T16:15:02.507286Z'
+etag: '"161dec76c7f142"'
+name: projects/52991355109/secrets/hpc-1-certificates/versions/1
+replicationStatus:
+  userManaged:
+    replicas:
+    - customerManagedEncryption:
+        kmsKeyVersionName: projects/lab-gke-se/locations/us-east4/keyRings/LAB-GKE-SE-gke-key-ring-uudp/cryptoKeys/LAB-GKE-SE-gke-key/cryptoKeyVersions/1
+      location: us-east4
+state: ENABLED

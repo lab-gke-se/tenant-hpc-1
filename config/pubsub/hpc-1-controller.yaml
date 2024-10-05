@@ -1,0 +1,2 @@
+name: hpc-1-controller
+kmsKeyName: ${kms_key}

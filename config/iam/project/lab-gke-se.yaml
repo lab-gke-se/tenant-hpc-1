@@ -1,0 +1,37 @@
+createTime: '2024-05-24T10:58:15.149034Z'
+lifecycleState: ACTIVE
+name: LAB-GKE-SE
+parent:
+  id: '202788586921'
+  type: folder
+projectId: lab-gke-se
+projectNumber: '52991355109'
+iamPolicy:
+  bindings:
+  - role: roles/pubsub.subscriber
+    members: 
+    - serviceAccount:hpc-1-nodes@lab-gke-se.iam.gserviceaccount.com
+  - role: roles/artifactregistry.reader
+    members: 
+    - serviceAccount:hpc-1-nodes@lab-gke-se.iam.gserviceaccount.com
+  - role: roles/autoscaling.metricsWriter
+    members: 
+    - serviceAccount:hpc-1-nodes@lab-gke-se.iam.gserviceaccount.com
+  - role: roles/dns.admin
+    members: 
+    - serviceAccount:hpc-1-nodes@lab-gke-se.iam.gserviceaccount.com
+  # - role: roles/dns.reader
+  #   members: 
+  #   - serviceAccount:hpc-1-nodes@lab-gke-se.iam.gserviceaccount.com
+  - role: roles/logging.logWriter
+    members: 
+    - serviceAccount:hpc-1-nodes@lab-gke-se.iam.gserviceaccount.com
+  - role: roles/monitoring.metricWriter
+    members: 
+    - serviceAccount:hpc-1-nodes@lab-gke-se.iam.gserviceaccount.com
+  - role: roles/monitoring.viewer
+    members: 
+    - serviceAccount:hpc-1-nodes@lab-gke-se.iam.gserviceaccount.com
+  - role: roles/stackdriver.resourceMetadata.writer
+    members: 
+    - serviceAccount:hpc-1-nodes@lab-gke-se.iam.gserviceaccount.com

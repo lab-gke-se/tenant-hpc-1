@@ -1,0 +1,12 @@
+apiVersion: storage.k8s.io/v1
+kind: StorageClass
+metadata: 
+  name: parallelstore-class
+provisioner: parallelstore.csi.storage.gke.io
+volumeBindingMode: Immediate
+reclaimPolicy: Delete
+allowedTopologies: 
+- matchLabelExpression:
+  - key: topology.gke.io/zone
+    values:
+    - us-central1-a
