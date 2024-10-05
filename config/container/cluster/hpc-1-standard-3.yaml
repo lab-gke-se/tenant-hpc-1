@@ -128,7 +128,7 @@ nodeConfig:
   diskType: pd-balanced
   imageType: COS_CONTAINERD
   loggingConfig: {}
-  machineType: e2-small
+  machineType: e2-medium
   metadata:
     disable-legacy-endpoints: 'true'
   oauthScopes:
@@ -140,10 +140,10 @@ nodeConfig:
   shieldedInstanceConfig:
     enableIntegrityMonitoring: true
     enableSecureBoot: true
-  taints:
-  - effect: NO_SCHEDULE
-    key: cloud.google.com/gke-quick-remove
-    value: 'true'
+  # taints:
+  # - effect: NO_SCHEDULE
+  #   key: cloud.google.com/gke-quick-remove
+  #   value: 'true'
   windowsNodeConfig: {}
   workloadMetadataConfig:
     mode: GKE_METADATA

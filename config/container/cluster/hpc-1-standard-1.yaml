@@ -130,22 +130,22 @@ nodeConfig:
   diskType: pd-balanced
   imageType: COS_CONTAINERD
   loggingConfig: {}
-  machineType: e2-small
+  machineType: e2-standard-2
   metadata:
     disable-legacy-endpoints: 'true'
   oauthScopes:
   - https://www.googleapis.com/auth/userinfo.email
   - https://www.googleapis.com/auth/cloud-platform
-  reservationAffinity:
-    consumeReservationType: NO_RESERVATION
+  # reservationAffinity:
+  #   consumeReservationType: NO_RESERVATION
   serviceAccount: ${service_account}
   shieldedInstanceConfig:
     enableIntegrityMonitoring: true
-    enableSecureBoot: true
-  taints:
-  - effect: NO_SCHEDULE
-    key: cloud.google.com/gke-quick-remove
-    value: 'true'
+    # enableSecureBoot: true
+  # taints:
+  # - effect: NO_SCHEDULE
+  #   key: cloud.google.com/gke-quick-remove
+  #   value: 'true'
   windowsNodeConfig: {}
   workloadMetadataConfig:
     mode: GKE_METADATA
