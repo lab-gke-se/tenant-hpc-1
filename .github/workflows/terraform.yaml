@@ -1,0 +1,38 @@
+name: "Terraform Workflow"
+
+on:
+  push:
+    branches:
+    - main
+    - feature/*
+
+jobs:
+  run:
+    name: Terraform
+    permissions:
+      id-token: write
+      contents: read
+    runs-on: ubuntu-latest
+    steps:
+    - uses: actions/checkout@v4
+    - uses: hashicorp/setup-terraform@v3
+
+    - name: Auth in GCP
+      id: auth
+      uses: google-github-actions/auth@v2
+      with:
+        token_format: access_token
+        workload_identity_provider: projects/52991355109/locations/global/workloadIdentityPools/github-pool/providers/github-provider
+        service_account: sa-tenant-gke@lab-gke-se.iam.gserviceaccount.com
+
+    - name: Terraform init
+      id: init
+      run: terraform init
+
+    - name: Terraform plan
+      id: plan
+      run: terraform plan -input=false -out "planfile"
+
+    - name: Terraform Apply
+      if: github.ref == 'refs/heads/main' && github.event_name == 'push'
+      run: terraform apply -auto-approve -input=false "planfile"
