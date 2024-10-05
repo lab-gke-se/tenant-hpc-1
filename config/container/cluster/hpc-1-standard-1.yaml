@@ -48,9 +48,9 @@ controlPlaneEndpointsConfig:
   dnsEndpointConfig:
     allowExternalTraffic: true
   enhancedIngress:
-currentMasterVersion: 1.30.3-gke.1969001
+currentMasterVersion: 1.30.5-gke.1014001
 currentNodeCount: 3
-currentNodeVersion: 1.30.3-gke.1969001
+currentNodeVersion: 1.30.5-gke.1014001
 databaseEncryption:
   currentState: CURRENT_STATE_ENCRYPTED
   keyName: ${kms_key}
@@ -59,7 +59,7 @@ defaultMaxPodsConstraint:
   maxPodsPerNode: '110'
 enterpriseConfig:
   clusterTier: STANDARD
-initialClusterVersion: 1.30.3-gke.1969001
+initialClusterVersion: 1.30.5-gke.1014001
 initialNodeCount: 1
 ipAllocationPolicy:
   clusterSecondaryRangeName: gke-pods
@@ -204,7 +204,7 @@ nodePools:
   upgradeSettings:
     maxSurge: 1
     strategy: SURGE
-  version: 1.29.6-gke.1038001
+  version: 1.30.5-gke.1014001
 - autoscaling:
     enabled: true
     locationPolicy: BALANCED
@@ -247,7 +247,7 @@ nodePools:
   upgradeSettings:
     maxSurge: 1
     strategy: SURGE
-  version: 1.29.6-gke.1038001
+  version: 1.30.5-gke.1014001
 - autoscaling:
     enabled: true
     locationPolicy: BALANCED
@@ -290,7 +290,7 @@ nodePools:
   upgradeSettings:
     maxSurge: 1
     strategy: SURGE
-  version: 1.29.6-gke.1038001
+  version: 1.30.5-gke.1014001
 - autoscaling:
     enabled: true
     locationPolicy: BALANCED
@@ -333,7 +333,7 @@ nodePools:
   upgradeSettings:
     maxSurge: 1
     strategy: SURGE
-  version: 1.29.6-gke.1038001
+  version: 1.30.5-gke.1014001
 - autoscaling:
     enabled: true
     locationPolicy: BALANCED
@@ -376,7 +376,7 @@ nodePools:
   upgradeSettings:
     maxSurge: 1
     strategy: SURGE
-  version: 1.29.6-gke.1038001
+  version: 1.30.5-gke.1014001
 - autoscaling:
     enabled: true
     locationPolicy: BALANCED
@@ -419,7 +419,7 @@ nodePools:
   upgradeSettings:
     maxSurge: 1
     strategy: SURGE
-  version: 1.29.6-gke.1038001
+  version: 1.30.5-gke.1014001
 - autoscaling:
     enabled: true
     locationPolicy: BALANCED
@@ -462,7 +462,7 @@ nodePools:
   upgradeSettings:
     maxSurge: 1
     strategy: SURGE
-  version: 1.29.6-gke.1038001
+  version: 1.30.5-gke.1014001
 notificationConfig:
   pubsub: {}
 privateClusterConfig:
