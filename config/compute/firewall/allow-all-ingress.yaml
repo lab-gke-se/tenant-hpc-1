@@ -8,5 +8,5 @@ allowed:
 sourceRanges:
 - 0.0.0.0/0
 logConfig:
-  enable: false
+  enable: true
   metadata: INCLUDE_ALL_METADATA

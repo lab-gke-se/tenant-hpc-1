@@ -1,12 +1,11 @@
 module "cluster" {
   for_each = local.cluster_configs
-  # source   = "github.com/lab-gke-se/modules//gke/cluster?ref=0.0.3"
-  source = "../modules//gke/cluster"
+  source   = "github.com/lab-gke-se/modules//gke/cluster?ref=0.0.4"
 
   # Terraform variables
   project                  = local.project
   deletion_protection      = false
-  remove_default_node_pool = false
+  remove_default_node_pool = true
 
   # GKE Variables
   name                           = each.value.name
@@ -59,6 +58,12 @@ module "cluster" {
   subnetwork                     = try(each.value.subnetwork, null)
   verticalPodAutoscaling         = try(each.value.verticalPodAutoscaling, null)
   workloadIdentityConfig         = try(each.value.workloadIdentityConfig, null)
+
+  timeouts = {
+    create = "45m"
+    update = "45m"
+    delete = "45m"
+  }
 
   depends_on = [module.project_iam_policy_members]
 }

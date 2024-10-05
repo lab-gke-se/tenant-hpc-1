@@ -1,6 +1,6 @@
 module "service_account" {
   for_each     = local.service_account_configs
-  source       = "../modules/iam/service_account"
+  source       = "github.com/lab-gke-se/modules//iam/service_account?ref=0.0.4"
   project      = local.project
   name         = each.value.name
   display_name = try(each.value.display_name, null)
@@ -9,7 +9,7 @@ module "service_account" {
 
 module "project_iam_policy_members" {
   for_each = local.project_configs
-  source   = "../modules/iam/members/project"
+  source   = "github.com/lab-gke-se/modules//iam/members/project?ref=0.0.4"
 
   project   = each.value.projectId
   iamPolicy = each.value.iamPolicy

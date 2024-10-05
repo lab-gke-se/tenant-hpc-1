@@ -1,5 +1,5 @@
 module "secret" {
-  source   = "../modules/secretmanager/secret"
+  source   = "github.com/lab-gke-se/modules//secretmanager/secret?ref=0.0.4"
   for_each = local.secret_configs
 
   project        = local.project

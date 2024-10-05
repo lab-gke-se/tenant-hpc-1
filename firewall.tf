@@ -1,5 +1,5 @@
 module "firewall_rules" {
-  source   = "../modules/network/firewall/rule"
+  source   = "github.com/lab-gke-se/modules//network/firewall/rule?ref=0.0.4"
   for_each = local.firewall_configs
 
   project           = local.project

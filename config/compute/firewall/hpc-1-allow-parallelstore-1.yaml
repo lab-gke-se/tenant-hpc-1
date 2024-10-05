@@ -3,7 +3,7 @@ allowed:
 direction: INGRESS
 disabled: false
 logConfig:
-  enable: false
+  enable: true
 name: hpc-1-allow-parallelstore-1
 network: projects/lab-gke-se/global/networks/hpc-1
 priority: 990

@@ -1,5 +1,5 @@
 module "storage" {
-  source = "github.com/lab-gke-se/modules//storage/bucket"
+  source = "github.com/lab-gke-se/modules//storage/bucket?ref=0.0.4"
 
   project             = local.project
   name                = "hpc-1-storage"
@@ -9,7 +9,7 @@ module "storage" {
 }
 
 module "storage_source" {
-  source = "github.com/lab-gke-se/modules//storage/bucket"
+  source = "github.com/lab-gke-se/modules//storage/bucket?ref=0.0.4"
 
   project             = local.project
   name                = "hpc-1-source"

@@ -1,8 +1,9 @@
 locals {
 
-  project             = "lab-gke-se"
-  location            = "us-east4"
-  deletion_protection = false
+  project                  = "lab-gke-se"
+  location                 = "us-east4"
+  deletion_protection      = false
+  remove_default_node_pool = true
 
   services = [
     "artifactregistry.googleapis.com",

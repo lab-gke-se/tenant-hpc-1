@@ -192,7 +192,7 @@ nodePools:
     autoUpgrade: true
   maxPodsConstraint:
     maxPodsPerNode: '32'
-  name: default-pool-new
+  name: pool-0
   networkConfig:
     enablePrivateNodes: true
     podRange: gke-pods
