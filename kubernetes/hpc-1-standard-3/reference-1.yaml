@@ -1,4 +1,4 @@
-# Created in us-central1-a for parallelstore
+# Template for standard clusters
 addonsConfig:
   dnsCacheConfig:
     enabled: true
@@ -17,7 +17,7 @@ addonsConfig:
 autopilot: {}
 autoscaling:
   autoprovisioningNodePoolDefaults:
-    bootDiskKmsKey: ${kms_key_usc1}
+    bootDiskKmsKey: ${kms_key}
     diskSizeGb: 100
     diskType: pd-balanced
     imageType: COS_CONTAINERD
@@ -48,18 +48,18 @@ controlPlaneEndpointsConfig:
   dnsEndpointConfig:
     allowExternalTraffic: true
   enhancedIngress:
-currentMasterVersion: 1.30.4-gke.1348000
+currentMasterVersion: 1.30.5-gke.1014001
 currentNodeCount: 3
-currentNodeVersion: 1.30.4-gke.1348000
+currentNodeVersion: 1.30.5-gke.1014001
 databaseEncryption:
   currentState: CURRENT_STATE_ENCRYPTED
-  keyName: ${kms_key_usc1}
+  keyName: ${kms_key}
   state: ENCRYPTED
 defaultMaxPodsConstraint:
   maxPodsPerNode: '110'
 enterpriseConfig:
   clusterTier: STANDARD
-initialClusterVersion: 1.30.4-gke.1348000
+initialClusterVersion: 1.30.5-gke.1014001
 initialNodeCount: 1
 ipAllocationPolicy:
   clusterSecondaryRangeName: gke-pods
@@ -68,9 +68,11 @@ ipAllocationPolicy:
   stackType: IPV4
   useIpAliases: true
 legacyAbac: {}
-location: us-central1-a
+location: us-east4
 locations:
-- us-central1-a
+- us-east4-a
+- us-east4-b
+- us-east4-c
 loggingConfig:
   componentConfig:
     enableComponents:
@@ -107,7 +109,7 @@ monitoringConfig:
   managedPrometheusConfig:
     enabled: true
 monitoringService: monitoring.googleapis.com/kubernetes
-name: hpc-1-standard-3
+name: hpc-1-standard-1
 network: hpc-1
 networkConfig:
   datapathProvider: ADVANCED_DATAPATH
@@ -121,14 +123,14 @@ networkConfig:
     channel: CHANNEL_STANDARD
   network: projects/lab-gke-se/global/networks/hpc-1
   serviceExternalIpsConfig: {}
-  subnetwork: projects/lab-gke-se/regions/us-central1-a/subnetworks/hpc-1-cluster-3
+  subnetwork: projects/lab-gke-se/regions/us-east4/subnetworks/hpc-1-cluster-1
 nodeConfig:
-  bootDiskKmsKey: ${kms_key_usc1}
+  bootDiskKmsKey: ${kms_key}
   diskSizeGb: 100
   diskType: pd-balanced
   imageType: COS_CONTAINERD
   loggingConfig: {}
-  machineType: e2-medium
+  machineType: e2-standard-2
   metadata:
     disable-legacy-endpoints: 'true'
   oauthScopes:
@@ -160,7 +162,7 @@ nodePools:
     locationPolicy: BALANCED
     maxNodeCount: 1000
   config:
-    bootDiskKmsKey: ${kms_key_usc1}
+    bootDiskKmsKey: ${kms_key}
     diskSizeGb: 100
     diskType: pd-balanced
     imageType: COS_CONTAINERD
@@ -186,7 +188,9 @@ nodePools:
       mode: GKE_METADATA
   initialNodeCount: 1
   locations:
-  - us-central1-a
+  - us-east4-a
+  - us-east4-b
+  - us-east4-c
   management:
     autoRepair: true
     autoUpgrade: true
@@ -200,13 +204,13 @@ nodePools:
   upgradeSettings:
     maxSurge: 1
     strategy: SURGE
-  version: 1.29.6-gke.1038001
+  version: 1.30.5-gke.1014001
 - autoscaling:
     enabled: true
     locationPolicy: BALANCED
     maxNodeCount: 1000
   config:
-    bootDiskKmsKey: ${kms_key_usc1}
+    bootDiskKmsKey: ${kms_key}
     diskSizeGb: 100
     diskType: pd-balanced
     imageType: COS_CONTAINERD
@@ -227,7 +231,9 @@ nodePools:
     workloadMetadataConfig:
       mode: GKE_METADATA
   locations:
-  - us-central1-a
+  - us-east4-a
+  - us-east4-b
+  - us-east4-c
   management:
     autoRepair: true
     autoUpgrade: true
@@ -241,13 +247,13 @@ nodePools:
   upgradeSettings:
     maxSurge: 1
     strategy: SURGE
-  version: 1.29.6-gke.1038001
+  version: 1.30.5-gke.1014001
 - autoscaling:
     enabled: true
     locationPolicy: BALANCED
     maxNodeCount: 1000
   config:
-    bootDiskKmsKey: ${kms_key_usc1}
+    bootDiskKmsKey: ${kms_key}
     diskSizeGb: 100
     diskType: pd-balanced
     imageType: COS_CONTAINERD
@@ -268,7 +274,9 @@ nodePools:
     workloadMetadataConfig:
       mode: GKE_METADATA
   locations:
-  - us-central1-a
+  - us-east4-a
+  - us-east4-b
+  - us-east4-c
   management:
     autoRepair: true
     autoUpgrade: true
@@ -282,13 +290,13 @@ nodePools:
   upgradeSettings:
     maxSurge: 1
     strategy: SURGE
-  version: 1.29.6-gke.1038001
+  version: 1.30.5-gke.1014001
 - autoscaling:
     enabled: true
     locationPolicy: BALANCED
     maxNodeCount: 1000
   config:
-    bootDiskKmsKey: ${kms_key_usc1}
+    bootDiskKmsKey: ${kms_key}
     diskSizeGb: 100
     diskType: pd-balanced
     imageType: COS_CONTAINERD
@@ -309,7 +317,9 @@ nodePools:
     workloadMetadataConfig:
       mode: GKE_METADATA
   locations:
-  - us-central1-a
+  - us-east4-a
+  - us-east4-b
+  - us-east4-c
   management:
     autoRepair: true
     autoUpgrade: true
@@ -323,13 +333,13 @@ nodePools:
   upgradeSettings:
     maxSurge: 1
     strategy: SURGE
-  version: 1.29.6-gke.1038001
+  version: 1.30.5-gke.1014001
 - autoscaling:
     enabled: true
     locationPolicy: BALANCED
     maxNodeCount: 1000
   config:
-    bootDiskKmsKey: ${kms_key_usc1}
+    bootDiskKmsKey: ${kms_key}
     diskSizeGb: 100
     diskType: pd-balanced
     imageType: COS_CONTAINERD
@@ -350,7 +360,9 @@ nodePools:
     workloadMetadataConfig:
       mode: GKE_METADATA
   locations:
-  - us-central1-a
+  - us-east4-a
+  - us-east4-b
+  - us-east4-c
   management:
     autoRepair: true
     autoUpgrade: true
@@ -364,13 +376,13 @@ nodePools:
   upgradeSettings:
     maxSurge: 1
     strategy: SURGE
-  version: 1.29.6-gke.1038001
+  version: 1.30.5-gke.1014001
 - autoscaling:
     enabled: true
     locationPolicy: BALANCED
     maxNodeCount: 1000
   config:
-    bootDiskKmsKey: ${kms_key_usc1}
+    bootDiskKmsKey: ${kms_key}
     diskSizeGb: 100
     diskType: pd-balanced
     imageType: COS_CONTAINERD
@@ -391,7 +403,9 @@ nodePools:
     workloadMetadataConfig:
       mode: GKE_METADATA
   locations:
-  - us-central1-a
+  - us-east4-a
+  - us-east4-b
+  - us-east4-c
   management:
     autoRepair: true
     autoUpgrade: true
@@ -405,13 +419,13 @@ nodePools:
   upgradeSettings:
     maxSurge: 1
     strategy: SURGE
-  version: 1.29.6-gke.1038001
+  version: 1.30.5-gke.1014001
 - autoscaling:
     enabled: true
     locationPolicy: BALANCED
     maxNodeCount: 1000
   config:
-    bootDiskKmsKey: ${kms_key_usc1}
+    bootDiskKmsKey: ${kms_key}
     diskSizeGb: 100
     diskType: pd-balanced
     imageType: COS_CONTAINERD
@@ -432,7 +446,9 @@ nodePools:
     workloadMetadataConfig:
       mode: GKE_METADATA
   locations:
-  - us-central1-a
+  - us-east4-a
+  - us-east4-b
+  - us-east4-c
   management:
     autoRepair: true
     autoUpgrade: true
@@ -446,14 +462,52 @@ nodePools:
   upgradeSettings:
     maxSurge: 1
     strategy: SURGE
-  version: 1.29.6-gke.1038001
+  version: 1.30.5-gke.1014001
+- config:
+    bootDiskKmsKey: ${kms_key}
+    diskSizeGb: 100
+    diskType: pd-balanced
+    imageType: COS_CONTAINERD
+    loggingConfig: {}
+    machineType: e2-standard-2
+    metadata:
+      disable-legacy-endpoints: 'true'
+    oauthScopes:
+    - https://www.googleapis.com/auth/userinfo.email
+    - https://www.googleapis.com/auth/cloud-platform
+    reservationAffinity:
+      consumeReservationType: NO_RESERVATION
+    serviceAccount: ${service_account}
+    shieldedInstanceConfig:
+      enableIntegrityMonitoring: true
+      enableSecureBoot: true
+    windowsNodeConfig: {}
+    workloadMetadataConfig:
+      mode: GKE_METADATA
+  locations:
+  - us-east4-a
+  - us-east4-b
+  - us-east4-c
+  management:
+    autoRepair: true
+    autoUpgrade: true
+  maxPodsConstraint:
+    maxPodsPerNode: '32'
+  name: pool-7
+  networkConfig:
+    enablePrivateNodes: true
+    podRange: gke-pods
+  podIpv4CidrSize: 26
+  upgradeSettings:
+    maxSurge: 1
+    strategy: SURGE
+  version: 1.30.5-gke.1014001
 notificationConfig:
   pubsub: {}
 privateClusterConfig:
   enablePrivateNodes: true
-  privateEndpointSubnetwork: hpc-1-private-3
-  # masterIpv4CidrBlock: 10.200.3.0/28
-
+  privateEndpointSubnetwork: hpc-1-private-1
+  # masterIpv4CidrBlock: 10.200.1.0/28
 rbacBindingConfig:
   enableInsecureBindingSystemAuthenticated: true
   enableInsecureBindingSystemUnauthenticated: true
@@ -464,9 +518,9 @@ securityPostureConfig:
   vulnerabilityMode: VULNERABILITY_DISABLED
 shieldedNodes:
   enabled: true
-subnetwork: hpc-1-cluster-3
+subnetwork: hpc-1-cluster-1
 verticalPodAutoscaling:
   enabled: true
 workloadIdentityConfig:
   workloadPool: lab-gke-se.svc.id.goog
-zone: us-central1-a
+zone: us-east4

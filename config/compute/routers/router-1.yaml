@@ -1,0 +1,21 @@
+bgp:
+  advertiseMode: DEFAULT
+  asn: 64523
+  keepaliveInterval: 20
+creationTimestamp: '2024-10-06T14:17:18.252-07:00'
+encryptedInterconnectRouter: false
+id: '529195477844836529'
+kind: compute#router
+name: router-1
+nats:
+- autoNetworkTier: PREMIUM
+  enableEndpointIndependentMapping: false
+  endpointTypes:
+  - ENDPOINT_TYPE_VM
+  name: nat-gateway-1
+  natIpAllocateOption: AUTO_ONLY
+  sourceSubnetworkIpRangesToNat: ALL_SUBNETWORKS_ALL_IP_RANGES
+  type: PUBLIC
+network: https://www.googleapis.com/compute/v1/projects/lab-gke-se/global/networks/hpc-1
+region: https://www.googleapis.com/compute/v1/projects/lab-gke-se/regions/us-east4
+selfLink: https://www.googleapis.com/compute/v1/projects/lab-gke-se/regions/us-east4/routers/router-1

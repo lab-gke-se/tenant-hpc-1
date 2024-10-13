@@ -1,0 +1,12 @@
+autoNetworkTier: PREMIUM
+enableDynamicPortAllocation: false
+enableEndpointIndependentMapping: false
+endpointTypes:
+- ENDPOINT_TYPE_VM
+logConfig:
+  enable: false
+  filter: ALL
+name: nat-gateway-3
+natIpAllocateOption: AUTO_ONLY
+sourceSubnetworkIpRangesToNat: ALL_SUBNETWORKS_ALL_IP_RANGES
+type: PUBLIC

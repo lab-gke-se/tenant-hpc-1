@@ -1,0 +1,8 @@
+autoNetworkTier: PREMIUM
+enableEndpointIndependentMapping: false
+endpointTypes:
+- ENDPOINT_TYPE_VM
+name: nat-gateway-1
+natIpAllocateOption: AUTO_ONLY
+sourceSubnetworkIpRangesToNat: ALL_SUBNETWORKS_ALL_IP_RANGES
+type: PUBLIC

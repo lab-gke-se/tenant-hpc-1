@@ -33,7 +33,7 @@ autoscaling:
       maxSurge: 1
       strategy: SURGE
   autoscalingProfile: OPTIMIZE_UTILIZATION
-  enableNodeAutoprovisioning: true
+  enableNodeAutoprovisioning: false
   resourceLimits:
   - maximum: '1000000000'
     resourceType: cpu
@@ -136,12 +136,12 @@ nodeConfig:
   oauthScopes:
   - https://www.googleapis.com/auth/userinfo.email
   - https://www.googleapis.com/auth/cloud-platform
-  # reservationAffinity:
-  #   consumeReservationType: NO_RESERVATION
+  reservationAffinity:
+    consumeReservationType: NO_RESERVATION
   serviceAccount: ${service_account}
   shieldedInstanceConfig:
     enableIntegrityMonitoring: true
-    # enableSecureBoot: true
+    enableSecureBoot: true
   # taints:
   # - effect: NO_SCHEDULE
   #   key: cloud.google.com/gke-quick-remove
@@ -158,7 +158,7 @@ nodePoolDefaults:
     #   insecureKubeletReadonlyPortEnabled: false
 nodePools:
 - autoscaling:
-    enabled: true
+    enabled: false
     locationPolicy: BALANCED
     maxNodeCount: 1000
   config:
@@ -206,7 +206,7 @@ nodePools:
     strategy: SURGE
   version: 1.30.5-gke.1014001
 - autoscaling:
-    enabled: true
+    enabled: false
     locationPolicy: BALANCED
     maxNodeCount: 1000
   config:
@@ -249,7 +249,7 @@ nodePools:
     strategy: SURGE
   version: 1.30.5-gke.1014001
 - autoscaling:
-    enabled: true
+    enabled: false
     locationPolicy: BALANCED
     maxNodeCount: 1000
   config:
@@ -292,7 +292,7 @@ nodePools:
     strategy: SURGE
   version: 1.30.5-gke.1014001
 - autoscaling:
-    enabled: true
+    enabled: false
     locationPolicy: BALANCED
     maxNodeCount: 1000
   config:
@@ -335,7 +335,7 @@ nodePools:
     strategy: SURGE
   version: 1.30.5-gke.1014001
 - autoscaling:
-    enabled: true
+    enabled: false
     locationPolicy: BALANCED
     maxNodeCount: 1000
   config:
@@ -378,7 +378,7 @@ nodePools:
     strategy: SURGE
   version: 1.30.5-gke.1014001
 - autoscaling:
-    enabled: true
+    enabled: false
     locationPolicy: BALANCED
     maxNodeCount: 1000
   config:
@@ -421,7 +421,7 @@ nodePools:
     strategy: SURGE
   version: 1.30.5-gke.1014001
 - autoscaling:
-    enabled: true
+    enabled: false
     locationPolicy: BALANCED
     maxNodeCount: 1000
   config:
@@ -481,7 +481,7 @@ shieldedNodes:
   enabled: true
 subnetwork: hpc-1-cluster-1
 verticalPodAutoscaling:
-  enabled: true
+  enabled: false
 workloadIdentityConfig:
   workloadPool: lab-gke-se.svc.id.goog
 zone: us-east4

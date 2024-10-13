@@ -39,3 +39,5 @@ terraform.rc
 
 .venv
 zip
+
+**/.DS_Store

@@ -1,0 +1,25 @@
+apiVersion: v1
+kind: Pod
+metadata:
+  name: busybox
+  annotations:
+    gke-gcsfuse/volumes: "true"
+    gke-parallelstore/volumes: "true"
+spec:
+  containers:
+  - image: busybox
+    name: busybox
+    command: ["sleep"]
+    args: ["infinity"]
+    volumeMounts:
+      - name: parallelstore-volume
+        mountPath: /pfs
+      - name: cloudstorage-volume
+        mountPath: /cs
+  volumes:
+  - name: parallelstore-volume
+    persistentVolumeClaim:
+      claimName: parallelstore-pvc
+  - name: cloudstorage-volume
+    persistentVolumeClaim:
+      claimName: cloudstorage-pvc

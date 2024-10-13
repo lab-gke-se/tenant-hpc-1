@@ -28,9 +28,16 @@ def get_callback(
 
     return callback
 
-batches   = 10
+# Create two large files and put them in the cloud storage bucket. 
+
+batches   = 1000
 batchSize = 1000
-eventData = {}
+eventData = {
+    "files": [
+        "reference-1.yaml", 
+        "reference-2.yaml", 
+    ]
+}
 
 for i in range(batches):
 
