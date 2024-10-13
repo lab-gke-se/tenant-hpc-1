@@ -130,7 +130,7 @@ nodeConfig:
   diskType: pd-balanced
   imageType: COS_CONTAINERD
   loggingConfig: {}
-  machineType: e2-standard-2
+  machineType: e2-standard-16 # Note Google changes this figure
   metadata:
     disable-legacy-endpoints: 'true'
   oauthScopes:
