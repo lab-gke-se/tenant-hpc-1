@@ -1,6 +1,7 @@
 module "cluster" {
   for_each = local.cluster_configs
-  source   = "github.com/lab-gke-se/modules//gke/cluster?ref=0.0.4"
+  # source   = "../modules//gke/cluster"
+  source = "github.com/lab-gke-se/modules//gke/cluster?ref=0.0.4"
 
   # Terraform variables
   project                  = local.project
