@@ -1,0 +1,12 @@
+  kind: PersistentVolumeClaim
+  apiVersion: v1
+  metadata:
+    name: parallelstore-pvc
+  spec:
+    accessModes:
+      - ReadWriteMany
+    storageClassName: parallelstore-class
+    volumeName: parallelstore-pv
+    resources:
+      requests:
+        storage: 12000Gi

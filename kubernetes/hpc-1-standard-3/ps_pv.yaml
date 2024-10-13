@@ -1,0 +1,18 @@
+apiVersion: v1
+kind: PersistentVolume
+metadata:
+  name: parallelstore-pv
+spec:
+  storageClassName: parallelstore-class
+  capacity:
+    storage: 12000Gi
+  accessModes:
+    - ReadWriteMany
+  persistentVolumeReclaimPolicy: Retain
+  volumeMode: Filesystem
+  csi:
+    driver: parallelstore.csi.storage.gke.io
+    volumeHandle: llab-gke-se/us-central1-a/hpc-1-storage-3/default-pool/default-container
+    volumeAttributes:
+      accessPoints: 10.19.136.130,10.19.136.131,10.19.136.132
+      network: hpc-1

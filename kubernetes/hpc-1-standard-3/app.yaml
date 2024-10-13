@@ -1,0 +1,34 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: pass
+spec:
+  selector:
+    matchLabels:
+      service: pass
+  replicas: 1
+  template:
+    metadata:
+      labels:
+        service: pass
+      annotations:
+        gke-gcsfuse/volumes: "true"
+        gke-parallelstore/volumes: "true"
+    spec:
+      serviceAccountName: pass
+      containers:
+      - image: us-central1-docker.pkg.dev/lab-gke-se/hpc-1-images/hpc-1-worker:v0.0.3
+        name: consumer
+        command: ["python", "main.py"]
+        volumeMounts:
+        - name: cloudstorage-volume
+          mountPath: /cs
+        - name: parallelstore-volume
+          mountPath: /ps
+      volumes:
+      - name: cloudstorage-volume
+        persistentVolumeClaim:
+          claimName: cloudstorage-pvc
+      - name: parallelstore-volume
+        persistentVolumeClaim:
+          claimName: parallelstore-pvc

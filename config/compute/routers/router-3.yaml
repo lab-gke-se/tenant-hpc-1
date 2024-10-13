@@ -1,0 +1,22 @@
+creationTimestamp: '2024-10-11T05:46:06.297-07:00'
+description: ''
+encryptedInterconnectRouter: false
+id: '8490452337811562721'
+kind: compute#router
+name: router-3
+nats:
+- autoNetworkTier: PREMIUM
+  enableDynamicPortAllocation: false
+  enableEndpointIndependentMapping: false
+  endpointTypes:
+  - ENDPOINT_TYPE_VM
+  logConfig:
+    enable: false
+    filter: ALL
+  name: nat-gateway-3
+  natIpAllocateOption: AUTO_ONLY
+  sourceSubnetworkIpRangesToNat: ALL_SUBNETWORKS_ALL_IP_RANGES
+  type: PUBLIC
+network: https://www.googleapis.com/compute/v1/projects/lab-gke-se/global/networks/hpc-1
+region: https://www.googleapis.com/compute/v1/projects/lab-gke-se/regions/us-central1
+selfLink: https://www.googleapis.com/compute/v1/projects/lab-gke-se/regions/us-central1/routers/router-3

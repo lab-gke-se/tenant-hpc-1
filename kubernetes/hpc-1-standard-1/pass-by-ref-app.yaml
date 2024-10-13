@@ -1,0 +1,40 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: pass-by-ref
+  annotations:
+    gke-gcsfuse/volumes: "true"
+spec:
+  selector:
+    matchLabels:
+      service: pass-by-ref
+  replicas: 1
+  template:
+    metadata:
+      labels:
+        service: pass-by-ref
+      annotations:
+        gke-gcsfuse/volumes: "true"
+        gke-parallelstore/volumes: "true"
+    spec:
+      serviceAccountName: testapp
+      containers:
+      - image: us-east4-docker.pkg.dev/lab-gke-se/test-repo/hpc-1-worker-k8:v0.0.4
+        name: consumer
+        volumeMounts:
+        - name: cloudstorage-volume
+          mountPath: /cs
+        - name: parallelstore-volume
+          mountPath: /ps
+        env:
+        - name: SUBSCRIPTION_NAME
+          value: "hpc-1-messages"
+        - name: GOOGLE_CLOUD_PROJECT
+          value: "lab-gke-se"
+      volumes:
+      - name: cloudstorage-volume
+        persistentVolumeClaim:
+          claimName: cloudstorage-pvc
+      - name: parallelstore-volume
+        persistentVolumeClaim:
+          claimName: parallelstore-pvc
