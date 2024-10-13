@@ -33,7 +33,7 @@ autoscaling:
       maxSurge: 1
       strategy: SURGE
   autoscalingProfile: OPTIMIZE_UTILIZATION
-  enableNodeAutoprovisioning: true
+  enableNodeAutoprovisioning: false
   # resourceLimits:
   # - maximum: '1000000000'
   #   resourceType: cpu
