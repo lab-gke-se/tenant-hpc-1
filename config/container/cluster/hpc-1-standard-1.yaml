@@ -34,15 +34,15 @@ autoscaling:
       strategy: SURGE
   autoscalingProfile: OPTIMIZE_UTILIZATION
   enableNodeAutoprovisioning: false
-  resourceLimits:
-  - maximum: '1000000000'
-    resourceType: cpu
-  - maximum: '1000000000'
-    resourceType: memory
-  - maximum: '1000000000'
-    resourceType: nvidia-tesla-t4
-  - maximum: '1000000000'
-    resourceType: nvidia-tesla-a100
+  # resourceLimits:
+  # - maximum: '1000000000'
+  #   resourceType: cpu
+  # - maximum: '1000000000'
+  #   resourceType: memory
+  # - maximum: '1000000000'
+  #   resourceType: nvidia-tesla-t4
+  # - maximum: '1000000000'
+  #   resourceType: nvidia-tesla-a100
 binaryAuthorization: {}
 controlPlaneEndpointsConfig:
   dnsEndpointConfig:

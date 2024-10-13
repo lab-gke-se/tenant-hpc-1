@@ -33,16 +33,16 @@ autoscaling:
       maxSurge: 1
       strategy: SURGE
   autoscalingProfile: OPTIMIZE_UTILIZATION
-  enableNodeAutoprovisioning: true
-  resourceLimits:
-  - maximum: '1000000000'
-    resourceType: cpu
-  - maximum: '1000000000'
-    resourceType: memory
-  - maximum: '1000000000'
-    resourceType: nvidia-tesla-t4
-  - maximum: '1000000000'
-    resourceType: nvidia-tesla-a100
+  enableNodeAutoprovisioning: false
+  # resourceLimits:
+  # - maximum: '1000000000'
+  #   resourceType: cpu
+  # - maximum: '1000000000'
+  #   resourceType: memory
+  # - maximum: '1000000000'
+  #   resourceType: nvidia-tesla-t4
+  # - maximum: '1000000000'
+  #   resourceType: nvidia-tesla-a100
 binaryAuthorization: {}
 controlPlaneEndpointsConfig:
   dnsEndpointConfig:
@@ -156,7 +156,7 @@ nodePoolDefaults:
     #   insecureKubeletReadonlyPortEnabled: false
 nodePools:
 - autoscaling:
-    enabled: true
+    enabled: false
     locationPolicy: BALANCED
     maxNodeCount: 1000
   config:
@@ -202,7 +202,7 @@ nodePools:
     strategy: SURGE
   version: 1.29.6-gke.1038001
 - autoscaling:
-    enabled: true
+    enabled: false
     locationPolicy: BALANCED
     maxNodeCount: 1000
   config:
@@ -243,7 +243,7 @@ nodePools:
     strategy: SURGE
   version: 1.29.6-gke.1038001
 - autoscaling:
-    enabled: true
+    enabled: false
     locationPolicy: BALANCED
     maxNodeCount: 1000
   config:
@@ -284,7 +284,7 @@ nodePools:
     strategy: SURGE
   version: 1.29.6-gke.1038001
 - autoscaling:
-    enabled: true
+    enabled: false
     locationPolicy: BALANCED
     maxNodeCount: 1000
   config:
@@ -325,7 +325,7 @@ nodePools:
     strategy: SURGE
   version: 1.29.6-gke.1038001
 - autoscaling:
-    enabled: true
+    enabled: false
     locationPolicy: BALANCED
     maxNodeCount: 1000
   config:
@@ -366,7 +366,7 @@ nodePools:
     strategy: SURGE
   version: 1.29.6-gke.1038001
 - autoscaling:
-    enabled: true
+    enabled: false
     locationPolicy: BALANCED
     maxNodeCount: 1000
   config:
@@ -407,7 +407,7 @@ nodePools:
     strategy: SURGE
   version: 1.29.6-gke.1038001
 - autoscaling:
-    enabled: true
+    enabled: false
     locationPolicy: BALANCED
     maxNodeCount: 1000
   config:
@@ -466,7 +466,7 @@ shieldedNodes:
   enabled: true
 subnetwork: hpc-1-cluster-3
 verticalPodAutoscaling:
-  enabled: true
+  enabled: false
 workloadIdentityConfig:
   workloadPool: lab-gke-se.svc.id.goog
 zone: us-central1-a
