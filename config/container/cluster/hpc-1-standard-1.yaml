@@ -186,7 +186,7 @@ nodePools:
     windowsNodeConfig: {}
     workloadMetadataConfig:
       mode: GKE_METADATA
-  initialNodeCount: 1
+  initialNodeCount: 0
   locations:
   - us-east4-a
   - us-east4-b
