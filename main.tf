@@ -34,6 +34,7 @@ locals {
   project_files          = fileset("${path.module}/config/iam/project", "*.yaml")
   cluster_files          = fileset("${path.module}/config/container/cluster", "*.yaml")
   parallelstore_files    = fileset("${path.module}/config/parallelstore", "*.yaml")
+  storage_bucket_files   = fileset("${path.module}/config/storage/bucket", "*.yaml")
 
   # network_configs          = { for filename in local.network_files : replace(filename, ".yaml", "") => yamldecode(templatefile("${path.module}/config/compute/network/${filename}", local.substitutions)) }
   # subnetwork_configs       = { for filename in local.subnetwork_files : replace(filename, ".yaml", "") => yamldecode(templatefile("${path.module}/config/compute/subnetwork/${filename}", local.substitutions)) }
@@ -45,4 +46,5 @@ locals {
   project_configs          = { for filename in local.project_files : replace(filename, ".yaml", "") => yamldecode(templatefile("${path.module}/config/iam/project/${filename}", {})) }
   cluster_configs          = { for filename in local.cluster_files : replace(filename, ".yaml", "") => yamldecode(templatefile("${path.module}/config/container/cluster/${filename}", local.substitutions)) }
   parallelstore_configs    = { for filename in local.parallelstore_files : replace(filename, ".yaml", "") => yamldecode(templatefile("${path.module}/config/parallelstore/${filename}", local.substitutions)) }
+  storage_bucket_configs   = { for filename in local.storage_bucket_files : replace(filename, ".yaml", "") => yamldecode(templatefile("${path.module}/config/storage/bucket/${filename}", local.substitutions)) }
 }

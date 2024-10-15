@@ -17,7 +17,7 @@ locals {
       ingress_settings              = "ALLOW_INTERNAL_ONLY"
       vpc_connector                 = null #var.vpc_connector
       vpc_connector_egress_settings = null # var.vpc_connector == null ? null : "ALL_TRAFFIC"
-      source_archive_bucket         = module.storage_source.name
+      source_archive_bucket         = module.storage["lab-gke-se-hpc-1-source"].name
       environment_variables : {}
       labels : {}
     }
@@ -55,7 +55,7 @@ data "archive_file" "cloud_function_source" {
 resource "google_storage_bucket_object" "cloud_function_source" {
   for_each = local.cloud_function
   name     = format("%s_%s.%s", each.key, data.archive_file.cloud_function_source[each.key].output_md5, "zip")
-  bucket   = module.storage_source.name
+  bucket   = module.storage["lab-gke-se-hpc-1-source"].name
   source   = data.archive_file.cloud_function_source[each.key].output_path
 }
 
