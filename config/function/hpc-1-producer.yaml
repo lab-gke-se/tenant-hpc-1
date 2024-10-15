@@ -1,0 +1,17 @@
+availableMemoryMb: 256
+buildServiceAccount: projects/lab-gke-se/serviceAccounts/hpc-1-cloudbuild@lab-gke-se.iam.gserviceaccount.com
+description: Producer Cloud Function
+dockerRegistry: ARTIFACT_REGISTRY
+dockerRepository: projects/lab-gke-se/locations/us-central1/repositories/hpc-1-images
+entryPoint: event_handler
+eventTrigger:
+  eventType: google.pubsub.topic.publish
+  resource: projects/lab-gke-se/topics/hpc-1-controller
+  service: pubsub.googleapis.com
+ingressSettings: ALLOW_INTERNAL_ONLY
+kmsKeyName: projects/lab-gke-se/locations/us-central1/keyRings/hpc-1-us-central1-kza4/cryptoKeys/hpc-1-us-central1
+maxInstances: 3000
+name: projects/lab-gke-se/locations/us-central1/functions/hpc-1-producer
+runtime: python311
+serviceAccountEmail: hpc-1-producer@lab-gke-se.iam.gserviceaccount.com
+sourceArchiveUrl: gs://lab-gke-se-hpc-1-source/producer_9c8addde5fba50ddab95c4ab10409578.zip

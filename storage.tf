@@ -1,21 +1,35 @@
-module "storage_east4" {
-  source = "github.com/lab-gke-se/modules//storage/bucket?ref=0.0.4"
-
-  project             = local.project
-  name                = "hpc-1-bucket-1"
-  location            = "us-east4"
-  data_classification = "data"
-  kms_key_id          = local.substitutions.kms_key
+moved {
+  from = module.storage.google_storage_bucket.bucket
+  to   = module.storage["lab-gke-se-hpc-1-bucket-3"].google_storage_bucket.bucket
 }
 
-module "storage" {
-  source = "github.com/lab-gke-se/modules//storage/bucket?ref=0.0.4"
+moved {
+  from = module.storage_east4.google_storage_bucket.bucket
+  to   = module.storage["lab-gke-se-hpc-1-bucket-1"].google_storage_bucket.bucket
+}
 
-  project             = local.project
-  name                = "hpc-1-bucket-3"
-  location            = "us-central1"
-  data_classification = "data"
-  kms_key_id          = local.substitutions.kms_key_usc1
+moved {
+  from = module.storage_source.google_storage_bucket.bucket
+  to   = module.storage["lab-gke-se-hpc-1-source"].google_storage_bucket.bucket
+}
+
+
+module "storage" {
+  source   = "github.com/lab-gke-se/modules//storage/bucket?ref=0.0.4"
+  for_each = local.storage_bucket_configs
+
+  project          = local.project
+  name             = each.value.name
+  encryption       = try(each.value.encryption, null)
+  iamConfiguration = try(each.value.iamConfiguration, null)
+  labels           = try(each.value.labels, null)
+  location         = try(each.value.location, null)
+  logging          = try(each.value.logging, null)
+  objectRetention  = try(each.value.objectRetention, null)
+  retentionPolicy  = try(each.value.retentionPolicy, null)
+  softDeletePolicy = try(each.value.softDeletePolicy, null)
+  storageClass     = try(each.value.storageClass, null)
+  versioning       = try(each.value.versioning, null)
 }
 
 module "parallelstore" {
@@ -44,23 +58,6 @@ resource "google_project_iam_member" "parallel_storage_admin" {
   role    = "roles/storage.admin"
   member  = google_project_service_identity.parallelstore.member
 }
-
-module "storage_source" {
-  source = "github.com/lab-gke-se/modules//storage/bucket?ref=0.0.4"
-
-  project             = local.project
-  name                = "hpc-1-source"
-  location            = "us-central1"
-  data_classification = "source"
-  kms_key_id          = local.substitutions.kms_key_usc1
-}
-
-# resource "google_storage_bucket_iam_member" "testapp_storage_admin" {
-#   bucket = module.storage.name
-#   role   = "roles/storage.admin"
-#   member = "principal://iam.googleapis.com/projects/52991355109/locations/global/workloadIdentityPools/lab-gke-se.svc.id.goog/subject/ns/default/sa/pass"
-# }
-
 
 resource "google_project_iam_member" "default_storage_admin" {
   project = local.project

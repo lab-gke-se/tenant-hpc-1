@@ -1,10 +1,13 @@
-default_kms_key: ${kms_key_usc1}
-default_storage_class: STANDARD
+encryption:
+  defaultKmsKeyName: projects/lab-gke-se/locations/us-central1/keyRings/hpc-1-us-central1-kza4/cryptoKeys/hpc-1-us-central1
+defaultStorageClass: STANDARD
 location: US-CENTRAL1
-location_type: region
 name: lab-gke-se-hpc-1-source
-public_access_prevention: enforced
-soft_delete_policy:
+softDeletePolicy:
   retentionDurationSeconds: '604800'
-uniform_bucket_level_access: true
-versioning_enabled: true
+iamConfiguration:
+  publicAccessPrevention: enforced
+  uniformBucketLevelAccess: 
+    enabled: true
+versioning: 
+  enabled: true
