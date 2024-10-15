@@ -19,7 +19,7 @@ module "storage" {
 }
 
 module "parallelstore" {
-  source   = "../modules/parallelstore"
+  source   = "github.com/lab-gke-se/modules//parallelstore?ref=0.0.4"
   for_each = local.parallelstore_configs
 
   name                 = each.value.name
