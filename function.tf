@@ -1,47 +1,8 @@
 locals {
   cloud_function = {
     producer = {
-      name                  = "hpc-1-producer"
-      description           = "Producer Cloud Function"
-      service_account       = "hpc-1-producer@lab-gke-se.iam.gserviceaccount.com"
-      build_service_account = "projects/lab-gke-se/serviceAccounts/hpc-1-cloudbuild@lab-gke-se.iam.gserviceaccount.com"
-      available_memory_mb   = 256
-      runtime               = "python311"
-      event_trigger = {
-        event_type = "google.pubsub.topic.publish"
-        resource   = "hpc-1-controller"
-      }
-      entry_point                   = "event_handler"
-      kms_key_id                    = local.substitutions.kms_key_usc1
-      docker_repository             = "projects/lab-gke-se/locations/us-central1/repositories/hpc-1-images"
-      ingress_settings              = "ALLOW_INTERNAL_ONLY"
-      vpc_connector                 = null #var.vpc_connector
-      vpc_connector_egress_settings = null # var.vpc_connector == null ? null : "ALL_TRAFFIC"
-      source_archive_bucket         = module.storage["lab-gke-se-hpc-1-source"].name
-      environment_variables : {}
-      labels : {}
+      service_account = "hpc-1-producer@lab-gke-se.iam.gserviceaccount.com"
     }
-    # worker = {
-    #   name                  = "hpc-1-worker"
-    #   description           = "Worker Cloud Function"
-    #   service_account       = "hpc-1-worker@lab-gke-se.iam.gserviceaccount.com"
-    #   build_service_account = "projects/lab-gke-se/serviceAccounts/hpc-1-cloudbuild@lab-gke-se.iam.gserviceaccount.com"
-    #   available_memory_mb   = 256
-    #   runtime               = "python311"
-    #   event_trigger = {
-    #     event_type = "google.pubsub.topic.publish"
-    #     resource   = "hpc-1-messages"
-    #   }
-    #   entry_point                   = "event_handler"
-    #   kms_key_id                    = local.substitutions.kms_key_usc1
-    #   docker_repository             = "projects/lab-gke-se/locations/us-central1/repositories/hpc-1-images"
-    #   ingress_settings              = "ALLOW_INTERNAL_ONLY"
-    #   vpc_connector                 = null #var.vpc_connector
-    #   vpc_connector_egress_settings = null # var.vpc_connector == null ? null : "ALL_TRAFFIC"
-    #   source_archive_bucket         = module.storage_source.name
-    #   environment_variables : {}
-    #   labels : {}
-    # }
   }
 }
 
@@ -89,38 +50,78 @@ resource "google_pubsub_topic_iam_member" "message" {
   depends_on = [module.service_account]
 }
 
-resource "google_cloudfunctions_function" "cloudfunction" {
-  for_each = local.cloud_function
+moved {
+  from = google_cloudfunctions_function.cloudfunction["producer"]
+  to   = module.functions["hpc-1-producer"].google_cloudfunctions_function.function
+}
+
+module "functions" {
+  source   = "github.com/lab-gke-se/modules//functions?ref=0.0.4"
+  for_each = local.functions_configs
 
   project = local.project
-  region  = "us-central1"
 
-  name        = each.value.name
-  description = each.value.description
-  runtime     = each.value.runtime
-
-  service_account_email = each.value.service_account
-  build_service_account = each.value.build_service_account
-
-  available_memory_mb   = each.value.available_memory_mb
-  source_archive_bucket = each.value.source_archive_bucket
-  source_archive_object = google_storage_bucket_object.cloud_function_source[each.key].name
-
-  event_trigger {
-    event_type = each.value.event_trigger.event_type
-    resource   = each.value.event_trigger.resource
-  }
-
-  entry_point = each.value.entry_point
-
-  kms_key_name      = each.value.kms_key_id
-  docker_repository = each.value.docker_repository
-
-  ingress_settings              = each.value.ingress_settings
-  vpc_connector                 = each.value.vpc_connector
-  vpc_connector_egress_settings = each.value.vpc_connector_egress_settings
-
-  environment_variables = each.value.environment_variables
-
-  labels = each.value.labels
+  name                       = each.value.name
+  description                = try(each.value.description, null)
+  entryPoint                 = try(each.value.entryPoint, null)
+  runtime                    = try(each.value.runtime, null)
+  timeout                    = try(each.value.timeout, null)
+  availableMemoryMb          = try(each.value.availableMemoryMb, null)
+  serviceAccountEmail        = try(each.value.serviceAccountEmail, null)
+  labels                     = try(each.value.labels, null)
+  environmentVariables       = try(each.value.environmentVariables, null)
+  buildEnvironmentVariables  = try(each.value.buildEnvironmentVariables, null)
+  minInstances               = try(each.value.minInstances, null)
+  maxInstances               = try(each.value.maxInstances, null)
+  vpcConnector               = try(each.value.vpcConnector, null)
+  vpcConnectorEgressSettings = try(each.value.vpcConnectorEgressSettings, null)
+  ingressSettings            = try(each.value.ingressSettings)
+  kmsKeyName                 = try(each.value.kmsKeyName, null)
+  buildWorkerPool            = try(each.value.buildWorkerPool, null)
+  secretEnvironmentVariables = try(each.value.secretEnvironmentVariables, null)
+  secretVolumes              = try(each.value.secretVolumes, null)
+  dockerRepository           = try(each.value.dockerRepository, null)
+  dockerRegistry             = try(each.value.dockerRegistry, null)
+  buildServiceAccount        = try(each.value.buildServiceAccount, null)
+  sourceArchiveUrl           = try(each.value.sourceArchiveUrl, null)
+  sourceRepository           = try(each.value.sourceRepository, null)
+  sourceUploadUrl            = try(each.value.sourceUploadUrl, null)
+  httpsTrigger               = try(each.value.httpsTrigger, null)
+  eventTrigger               = try(each.value.eventTrigger, null)
 }
+
+# resource "google_cloudfunctions_function" "cloudfunction" {
+#   for_each = local.cloud_function
+
+#   project = local.project
+#   region  = "us-central1"
+
+#   name        = each.value.name
+#   description = each.value.description
+#   runtime     = each.value.runtime
+
+#   service_account_email = each.value.service_account
+#   build_service_account = each.value.build_service_account
+
+#   available_memory_mb   = each.value.available_memory_mb
+#   source_archive_bucket = each.value.source_archive_bucket
+#   source_archive_object = google_storage_bucket_object.cloud_function_source[each.key].name
+
+#   event_trigger {
+#     event_type = each.value.event_trigger.event_type
+#     resource   = each.value.event_trigger.resource
+#   }
+
+#   entry_point = each.value.entry_point
+
+#   kms_key_name      = each.value.kms_key_id
+#   docker_repository = each.value.docker_repository
+
+#   ingress_settings              = each.value.ingress_settings
+#   vpc_connector                 = each.value.vpc_connector
+#   vpc_connector_egress_settings = each.value.vpc_connector_egress_settings
+
+#   environment_variables = each.value.environment_variables
+
+#   labels = each.value.labels
+# }

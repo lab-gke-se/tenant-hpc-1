@@ -1,19 +1,3 @@
-moved {
-  from = module.storage.google_storage_bucket.bucket
-  to   = module.storage["lab-gke-se-hpc-1-bucket-3"].google_storage_bucket.bucket
-}
-
-moved {
-  from = module.storage_east4.google_storage_bucket.bucket
-  to   = module.storage["lab-gke-se-hpc-1-bucket-1"].google_storage_bucket.bucket
-}
-
-moved {
-  from = module.storage_source.google_storage_bucket.bucket
-  to   = module.storage["lab-gke-se-hpc-1-source"].google_storage_bucket.bucket
-}
-
-
 module "storage" {
   source   = "github.com/lab-gke-se/modules//storage/bucket?ref=0.0.4"
   for_each = local.storage_bucket_configs
