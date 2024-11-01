@@ -1,0 +1,5 @@
+description: Service Account for Keda Operator
+displayName: Keda operator service account
+email: sa-keda-operator@lab-gke-se.iam.gserviceaccount.com
+name: projects/lab-gke-se/serviceAccounts/sa-keda-operator@lab-gke-se.iam.gserviceaccount.com
+projectId: lab-gke-se

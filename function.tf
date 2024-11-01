@@ -27,7 +27,7 @@ resource "google_project_iam_member" "reader" {
   role     = "roles/artifactregistry.reader"
   member   = "serviceAccount:${each.value.service_account}"
 
-  depends_on = [module.service_account]
+  depends_on = [module.serviceaccount]
 }
 
 # Make this more specific to the storage bucket
@@ -37,7 +37,7 @@ resource "google_project_iam_member" "storage" {
   role     = "roles/storage.objectAdmin"
   member   = "serviceAccount:${each.value.service_account}"
 
-  depends_on = [module.service_account]
+  depends_on = [module.serviceaccount]
 }
 
 resource "google_pubsub_topic_iam_member" "message" {
@@ -47,7 +47,7 @@ resource "google_pubsub_topic_iam_member" "message" {
   role     = "roles/pubsub.publisher"
   member   = "serviceAccount:${each.value.service_account}"
 
-  depends_on = [module.service_account]
+  depends_on = [module.serviceaccount]
 }
 
 moved {

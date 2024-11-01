@@ -12,6 +12,5 @@ module "firewall_rules" {
   sourceRanges      = try(each.value.sourceRanges, null)
   destinationRanges = try(each.value.destinationRanges, null)
   logConfig         = try(each.value.logConfig, null)
-
 }
 

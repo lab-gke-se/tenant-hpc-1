@@ -2,7 +2,6 @@ module "registry" {
   source   = "github.com/lab-gke-se/modules//artifactregistry?ref=0.0.4"
   for_each = local.artifactregistry_configs
 
-  project                 = local.project
   name                    = each.value.name
   format                  = each.value.format
   description             = try(each.value.description, null)

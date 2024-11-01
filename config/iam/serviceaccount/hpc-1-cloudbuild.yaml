@@ -1,0 +1,5 @@
+description: Service Account for building cloud functions using cloud build
+displayName: HPC 1 Cloud Build
+email: hpc-1-cloudbuild@lab-gke-se.iam.gserviceaccount.com
+name: projects/lab-gke-se/serviceAccounts/hpc-1-cloudbuild@lab-gke-se.iam.gserviceaccount.com
+projectId: lab-gke-se

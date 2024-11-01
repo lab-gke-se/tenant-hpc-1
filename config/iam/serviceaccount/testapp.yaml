@@ -1,0 +1,5 @@
+description: Test App
+displayName: Test App Keda Service Account
+email: testapp@lab-gke-se.iam.gserviceaccount.com
+name: projects/lab-gke-se/serviceAccounts/testapp@lab-gke-se.iam.gserviceaccount.com
+projectId: lab-gke-se

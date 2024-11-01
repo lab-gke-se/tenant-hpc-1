@@ -3,11 +3,8 @@ accessPoints:
 - 10.19.136.131
 - 10.19.136.132
 capacityGib: '12000'
-createTime: '2024-10-09T09:39:47.199281391Z'
 directoryStripeLevel: DIRECTORY_STRIPE_LEVEL_BALANCED
 effectiveReservedIpRange: hpc-1-parallelstore-1
 fileStripeLevel: FILE_STRIPE_LEVEL_BALANCED
 name: projects/lab-gke-se/locations/us-central1-a/instances/hpc-1-storage-3
 network: projects/lab-gke-se/global/networks/hpc-1
-state: ACTIVE
-updateTime: '2024-10-13T23:51:42.809725473Z'
