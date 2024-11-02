@@ -1,4 +1,0 @@
-name: hpc-1-worker
-project: lab-gke-se
-display_name: HPC 1 Worker Function Service Account
-description: HPC 1 Worker Function Service Account

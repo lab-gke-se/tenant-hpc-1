@@ -1,4 +1,0 @@
-name: hpc-1-nodes
-project: lab-gke-se
-display_name: HPC 1 Cluster Node Service Account
-description: HPC 1 Cluster Node Service Account

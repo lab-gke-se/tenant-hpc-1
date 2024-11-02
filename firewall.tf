@@ -1,5 +1,6 @@
 module "firewall_rules" {
-  source   = "github.com/lab-gke-se/modules//compute/firewall/rule?ref=0.0.4"
+  source = "github.com/lab-gke-se/modules//compute/firewall/rule?ref=0.0.4"
+  # source   = "../modules//compute/firewall/rule"
   for_each = local.firewall_configs
 
   project           = local.project
@@ -12,6 +13,4 @@ module "firewall_rules" {
   sourceRanges      = try(each.value.sourceRanges, null)
   destinationRanges = try(each.value.destinationRanges, null)
   logConfig         = try(each.value.logConfig, null)
-
 }
-

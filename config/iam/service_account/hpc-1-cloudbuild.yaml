@@ -1,4 +1,0 @@
-name: hpc-1-cloudbuild
-project: lab-gke-se
-display_name: HPC 1 Cloud Build
-description: Service Account for building cloud functions using cloud build
