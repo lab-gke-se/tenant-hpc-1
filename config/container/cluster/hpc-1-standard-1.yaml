@@ -208,7 +208,7 @@ nodePools:
   upgradeSettings:
     maxSurge: 1
     strategy: SURGE
-  version: 1.30.5-gke.1014001
+  version: 1.30.6-gke.1125000
 - autoscaling:
     enabled: false
     locationPolicy: BALANCED
@@ -251,7 +251,7 @@ nodePools:
   upgradeSettings:
     maxSurge: 1
     strategy: SURGE
-  version: 1.30.5-gke.1014001
+  version: 1.30.6-gke.1125000
 - autoscaling:
     enabled: false
     locationPolicy: BALANCED
@@ -294,7 +294,7 @@ nodePools:
   upgradeSettings:
     maxSurge: 1
     strategy: SURGE
-  version: 1.30.5-gke.1014001
+  version: 1.30.6-gke.1125000
 - autoscaling:
     enabled: false
     locationPolicy: BALANCED
@@ -337,7 +337,7 @@ nodePools:
   upgradeSettings:
     maxSurge: 1
     strategy: SURGE
-  version: 1.30.5-gke.1014001
+  version: 1.30.6-gke.1125000
 - autoscaling:
     enabled: false
     locationPolicy: BALANCED
@@ -380,7 +380,7 @@ nodePools:
   upgradeSettings:
     maxSurge: 1
     strategy: SURGE
-  version: 1.30.5-gke.1014001
+  version: 1.30.6-gke.1125000
 - autoscaling:
     enabled: false
     locationPolicy: BALANCED
@@ -423,7 +423,7 @@ nodePools:
   upgradeSettings:
     maxSurge: 1
     strategy: SURGE
-  version: 1.30.5-gke.1014001
+  version: 1.30.6-gke.1125000
 - autoscaling:
     enabled: false
     locationPolicy: BALANCED
@@ -466,7 +466,7 @@ nodePools:
   upgradeSettings:
     maxSurge: 1
     strategy: SURGE
-  version: 1.30.5-gke.1014001
+  version: 1.30.6-gke.1125000
 notificationConfig:
   pubsub: {}
 privateClusterConfig:
