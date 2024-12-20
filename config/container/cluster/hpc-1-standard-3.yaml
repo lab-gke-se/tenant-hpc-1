@@ -156,7 +156,7 @@ nodePoolDefaults:
     #   insecureKubeletReadonlyPortEnabled: false
 nodePools:
 - autoscaling:
-    enabled: true
+    enabled: false
     locationPolicy: BALANCED
     maxNodeCount: 1000
   config:
@@ -200,7 +200,7 @@ nodePools:
   upgradeSettings:
     maxSurge: 1
     strategy: SURGE
-  version: 1.29.6-gke.1038001
+  version: 1.30.6-gke.1125000
 - autoscaling:
     enabled: true
     locationPolicy: BALANCED
@@ -241,7 +241,7 @@ nodePools:
   upgradeSettings:
     maxSurge: 1
     strategy: SURGE
-  version: 1.29.6-gke.1038001
+  version: 1.30.6-gke.1125000
 - autoscaling:
     enabled: true
     locationPolicy: BALANCED
@@ -282,7 +282,7 @@ nodePools:
   upgradeSettings:
     maxSurge: 1
     strategy: SURGE
-  version: 1.29.6-gke.1038001
+  version: 1.30.6-gke.1125000
 - autoscaling:
     enabled: true
     locationPolicy: BALANCED
@@ -323,7 +323,7 @@ nodePools:
   upgradeSettings:
     maxSurge: 1
     strategy: SURGE
-  version: 1.29.6-gke.1038001
+  version: 1.30.6-gke.1125000
 - autoscaling:
     enabled: true
     locationPolicy: BALANCED
@@ -364,7 +364,7 @@ nodePools:
   upgradeSettings:
     maxSurge: 1
     strategy: SURGE
-  version: 1.29.6-gke.1038001
+  version: 1.30.6-gke.1125000
 - autoscaling:
     enabled: true
     locationPolicy: BALANCED
@@ -405,9 +405,9 @@ nodePools:
   upgradeSettings:
     maxSurge: 1
     strategy: SURGE
-  version: 1.29.6-gke.1038001
+  version: 1.30.6-gke.1125000
 - autoscaling:
-    enabled: true
+    enabled: false
     locationPolicy: BALANCED
     maxNodeCount: 1000
   config:
@@ -446,7 +446,7 @@ nodePools:
   upgradeSettings:
     maxSurge: 1
     strategy: SURGE
-  version: 1.29.6-gke.1038001
+  version: 1.30.6-gke.1125000
 notificationConfig:
   pubsub: {}
 privateClusterConfig:
