@@ -48,9 +48,9 @@ controlPlaneEndpointsConfig:
   dnsEndpointConfig:
     allowExternalTraffic: true
   enhancedIngress:
-currentMasterVersion: 1.30.5-gke.1014001
+currentMasterVersion: 1.30.6-gke.1125000
 currentNodeCount: 3
-currentNodeVersion: 1.30.5-gke.1014001
+currentNodeVersion: 1.30.6-gke.1125000
 databaseEncryption:
   currentState: CURRENT_STATE_ENCRYPTED
   keyName: ${kms_key}
@@ -59,7 +59,7 @@ defaultMaxPodsConstraint:
   maxPodsPerNode: '110'
 enterpriseConfig:
   clusterTier: STANDARD
-initialClusterVersion: 1.30.5-gke.1014001
+initialClusterVersion: 1.30.6-gke.1125000
 initialNodeCount: 1
 ipAllocationPolicy:
   clusterSecondaryRangeName: gke-pods
@@ -90,6 +90,10 @@ masterAuthorizedNetworksConfig:
   cidrBlocks:
   - cidrBlock: 77.101.187.225/32
     displayName: Dave's Home
+  - cidrBlock: 193.186.4.64/32
+    displayName: him-home-2
+  - cidrBlock: 2.100.84.230/32
+    displayName: himanshu's home
   enabled: true
   gcpPublicCidrsAccessEnabled: false
 monitoringConfig:

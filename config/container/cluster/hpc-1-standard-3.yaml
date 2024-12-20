@@ -48,9 +48,9 @@ controlPlaneEndpointsConfig:
   dnsEndpointConfig:
     allowExternalTraffic: true
   enhancedIngress:
-currentMasterVersion: 1.30.4-gke.1348000
+currentMasterVersion: 1.30.6-gke.1125000
 currentNodeCount: 3
-currentNodeVersion: 1.30.5-gke.1014001
+currentNodeVersion: 1.30.6-gke.1125000
 databaseEncryption:
   currentState: CURRENT_STATE_ENCRYPTED
   keyName: ${kms_key_usc1}
@@ -59,7 +59,7 @@ defaultMaxPodsConstraint:
   maxPodsPerNode: '110'
 enterpriseConfig:
   clusterTier: STANDARD
-initialClusterVersion: 1.30.5-gke.1014001
+initialClusterVersion: 1.30.6-gke.1125000
 initialNodeCount: 1
 ipAllocationPolicy:
   clusterSecondaryRangeName: gke-pods
