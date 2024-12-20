@@ -91,9 +91,9 @@ masterAuthorizedNetworksConfig:
   - cidrBlock: 77.101.187.225/32
     displayName: Dave's Home
   - cidrBlock: 193.186.4.64/32
-    displayName = him-home-2
+    displayName: him-home-2
   - cidrBlock: 2.100.84.230/32
-    displayName = himanshu's home
+    displayName: himanshu's home
   enabled: true
   gcpPublicCidrsAccessEnabled: false
 monitoringConfig:
