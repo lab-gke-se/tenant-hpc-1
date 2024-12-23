@@ -1,5 +1,5 @@
-batches: 10
-messages: 10
+batches: 1
+messages: 1
 batch: 0
 message: 0
 actions:
