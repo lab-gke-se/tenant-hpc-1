@@ -83,7 +83,7 @@ module "functions" {
   dockerRepository           = try(each.value.dockerRepository, null)
   dockerRegistry             = try(each.value.dockerRegistry, null)
   buildServiceAccount        = try(each.value.buildServiceAccount, null)
-  sourceArchiveUrl           = try(each.value.sourceArchiveUrl, null)
+  sourceArchiveUrl           = "gs://${google_storage_bucket.source.name}/${google_storage_bucket_object.cloud_function_source.name}"
   sourceRepository           = try(each.value.sourceRepository, null)
   sourceUploadUrl            = try(each.value.sourceUploadUrl, null)
   httpsTrigger               = try(each.value.httpsTrigger, null)
