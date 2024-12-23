@@ -1,12 +1,13 @@
 """Publishes multiple messages to a Pub/Sub topic with an error handler."""
 
-from json import dumps
+import os
 
+from json import dumps
 from concurrent import futures
 from google.cloud import pubsub_v1
 from typing import Callable
-from base64 import b64encode
 from datetime import datetime
+from file_helper import read_yaml_file
 
 project_id = "lab-gke-se"
 topic_id = "hpc-1-controller"
@@ -30,34 +31,28 @@ def get_callback(
 
 # Create two large files and put them in the cloud storage bucket. 
 
-batches   = 1000
-batchSize = 1000
-eventData = {
-    "files": [
-        "reference-1.yaml", 
-        "reference-2.yaml", 
-    ]
-}
+message = read_yaml_file("message.yaml")
+batches = message.setdefault("batches", 1)
+messages = message.setdefault("messages", 1)
 
 for i in range(batches):
 
-    data = {
-        "messageType": "batch",
-        "batches": batches,
+    message.update({
         "batch": i+1,
-        "batchSize": batchSize, 
-        "batchStart" : datetime.now().isoformat(),
-        "eventData": eventData
-    }
+        "message" : 0
+    })
+    timings = message.setdefault("timings", {})
+    timings["batch started"] = datetime.now().isoformat()
 
-    data_str = dumps(data)
-    print(f"data_str {data_str}")
-    # When you publish a message, the client returns a future.
-    data_str_encoded = data_str.encode("utf-8")
-    publish_future = publisher.publish(topic_path, data_str.encode("utf-8"))
-    print(f"data_str_encoded {data_str_encoded}")
+    print(f"message : {message}")
+    message_str = dumps(message)
+    print(f"message_str : {message_str}")
+    message_str_encoded = message_str.encode("utf-8")
+
+    publish_future = publisher.publish(topic_path, message_str.encode("utf-8"))
+    print(f"message_str_encoded {message_str_encoded}")
     # Non-blocking. Publish failures are handled in the callback function.
-    publish_future.add_done_callback(get_callback(publish_future, data_str))
+    publish_future.add_done_callback(get_callback(publish_future, message_str))
     publish_futures.append(publish_future)
 
 # Wait for all the publish futures to resolve before exiting.

@@ -47,18 +47,15 @@ def message_handler(message):
         publish_futures = []
 
         batch = message.get("batch", 0)
-        batchSize = message.get("batchSize", 0)
-        eventData = message.get("eventData", {})
+        messages = message.get("messages", 0)
+        # actions = message.get("actions", {})
 
-        for i in range(batchSize):
+        for i in range(messages):
             message.update({ 
-                "messageType": "event",
-                "eventNumber": i+1,
-                "eventStart": datetime.now().isoformat(),
-                "eventData" : eventData
+                "message": i+1,
             })
-
-            # logging.info( "message", extra={"json_fields": message})
+            timings = message.get("timings")
+            timings["message queued"] = datetime.now().isoformat()
 
             message_str = dumps(message)
             # print(f"data_str {message_str}")

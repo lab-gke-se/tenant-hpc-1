@@ -12,7 +12,7 @@ spec:
   volumeMode: Filesystem
   csi:
     driver: parallelstore.csi.storage.gke.io
-    volumeHandle: llab-gke-se/us-central1-a/hpc-1-storage-3/default-pool/default-container
+    volumeHandle: lab-gke-se/us-central1-a/hpc-1-storage-3/default-pool/default-container
     volumeAttributes:
       accessPoints: 10.19.136.130,10.19.136.131,10.19.136.132
       network: hpc-1

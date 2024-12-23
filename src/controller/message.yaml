@@ -1,0 +1,12 @@
+batches: 10
+messages: 10
+batch: 0
+message: 0
+actions:
+- read files:
+  - /cs/data/file1.dat
+  - /cs/data/file2.dat
+  - /cs/data/file3.dat
+- calculate : 1234
+- write message : message finished
+timings: {}

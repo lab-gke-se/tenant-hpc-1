@@ -1,8 +1,11 @@
 #!/usr/bin/env python
 # -*- coding: utf-8 -*-
 
-import yaml
+# import yaml
 import json 
+import random
+
+from math import factorial
 from concurrent.futures import TimeoutError
 from datetime import datetime
 from google.cloud import pubsub_v1
@@ -19,67 +22,71 @@ subscriber = pubsub_v1.SubscriberClient()
 # in the form `projects/{project_id}/subscriptions/{subscription_id}`
 subscription_path = subscriber.subscription_path(project_id, subscription_id)
 
-def str_presenter(dumper, data):
-    """configures yaml for dumping multiline strings
-    Ref: https://stackoverflow.com/questions/8640959/how-can-i-control-what-scalar-form-pyyaml-uses-for-my-data
-    """
-    if data.count("\n") > 0:  # check for multiline string
-        return dumper.represent_scalar("tag:yaml.org,2002:str", data, style="|")
-    return dumper.represent_scalar("tag:yaml.org,2002:str", data)
+# def str_presenter(dumper, data):
+#     """configures yaml for dumping multiline strings
+#     Ref: https://stackoverflow.com/questions/8640959/how-can-i-control-what-scalar-form-pyyaml-uses-for-my-data
+#     """
+#     if data.count("\n") > 0:  # check for multiline string
+#         return dumper.represent_scalar("tag:yaml.org,2002:str", data, style="|")
+#     return dumper.represent_scalar("tag:yaml.org,2002:str", data)
 
-def read_yaml_file(file_name: str):
+# def read_yaml_file(file_name: str):
+#     try:
+#         with open(file_name, encoding="utf-8", mode="r") as yaml_file:
+#             return yaml.safe_load(yaml_file)
+#     except FileNotFoundError:
+#         raise
+
+# def write_yaml_file(file_name: str, data: any):
+#     yaml.add_representer(str, str_presenter)
+#     yaml.representer.SafeRepresenter.add_representer(
+#         str, str_presenter
+#     )  # to use with safe_dum
+#     with open(file_name, "w") as outfile:
+#         yaml.dump(data, outfile, default_flow_style=False, sort_keys=False)
+
+def callback(pubsub_message: pubsub_v1.subscriber.message.Message) -> None:
     try:
-        with open(file_name, encoding="utf-8", mode="r") as yaml_file:
-            return yaml.safe_load(yaml_file)
-    except FileNotFoundError:
-        raise
+        message_str = pubsub_message.data.decode("utf-8")
+        message = json.loads(message_str)
+        timings = message.get("timings")
+        timings["message read"] = datetime.now().isoformat()
 
-def write_yaml_file(file_name: str, data: any):
-    yaml.add_representer(str, str_presenter)
-    yaml.representer.SafeRepresenter.add_representer(
-        str, str_presenter
-    )  # to use with safe_dum
-    with open(file_name, "w") as outfile:
-        yaml.dump(data, outfile, default_flow_style=False, sort_keys=False)
-
-def callback(message: pubsub_v1.subscriber.message.Message) -> None:
-    try:
-        data_str = message.data.decode("utf-8")
-        data = json.loads(data_str)
-        data.update({ 
-            "messageStart" : datetime.now().isoformat()
-        })
         now = datetime.now()
         log_time = now.strftime("%H:%M:%S")
+        print(f"Received {log_time} {message}")
 
-        print(f"Received {log_time} {data}")
+        batch = message.get("batch")
+        actions = message.get("actions", {})
+        num = message.get("message")
 
-        batch = data.get("batch")
-        eventData = data.get("eventData", {})
-        eventNumber = data.get("eventNumber")
-        # eventStart = data.get("eventStart")
-        files = eventData.get("files", [])
+        actions = message.get("actions")
+        for action in actions:
 
-        for file in files :
-            data.update({ 
-                "readStart" : datetime.now().isoformat()
-            })
-            content = read_yaml_file(f"./cs/{file}")
-            data.update({ 
-                "writeStart" : datetime.now().isoformat()
-            })
-            write_yaml_file(f"./ps/batch_{batch}_message_{eventNumber}_{file}", content)
-            data.update({ 
-                "writeEnd" : datetime.now().isoformat()
-            })
+            command = list(action.keys())[0]
 
-        message.ack()
+            match command:
+                case "read files":
+                    for file in action[command]:
+                        # Note: might want to do timings for file open and file read
+                        with open(file, encoding="utf-8", mode="r") as file:
+                            content = file.read()
+                        timings[f"read file {file}"] = datetime.now().isoformat()
+                case "calculate":
+                    result = factorial(random.randrange(0,100))
+                    timings[f"calculated {result}"] = datetime.now().isoformat()
+                case "write message":
+                    # result = write_message()
+                    timings["writing message"] = datetime.now().isoformat()
+                case other:
+                    timings["unknown command"] = datetime.now().isoformat()
 
-        data.update({ 
-            "messageEnd" : datetime.now().isoformat()
-        })
+        pubsub_message.ack()
+
+        timings["message finished"] = datetime.now().isoformat()
+
         log_time = now.strftime("%H:%M:%S")
-        print(f"Acknowledged {log_time} {data}")
+        print(f"Acknowledged {log_time} {message}")
 
     except Exception as error:
         raise
