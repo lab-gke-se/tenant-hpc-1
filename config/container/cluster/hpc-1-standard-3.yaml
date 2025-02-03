@@ -1,56 +1,77 @@
-# Created in us-central1-a for parallelstore
+# Created to match google configuration 
 addonsConfig:
   dnsCacheConfig:
     enabled: true
   gcePersistentDiskCsiDriverConfig:
     enabled: true
-  gcpFilestoreCsiDriverConfig:
-    enabled: true
+  gcpFilestoreCsiDriverConfig: {}
   gcsFuseCsiDriverConfig:
     enabled: true
   kubernetesDashboard:
     disabled: true
   networkPolicyConfig:
     disabled: true
-  statefulHaConfig:
-    enabled: true
 autopilot: {}
-# autoscaling:
-#   autoprovisioningNodePoolDefaults:
-#     bootDiskKmsKey: ${kms_key_usc1}
-#     diskSizeGb: 100
-#     diskType: pd-balanced
-#     imageType: COS_CONTAINERD
-#     management:
-#       autoRepair: true
-#       autoUpgrade: true
-#       upgradeOptions: {}
-#     oauthScopes:
-#     - https://www.googleapis.com/auth/userinfo.email
-#     - https://www.googleapis.com/auth/cloud-platform
-#     serviceAccount: ${service_account}
-#     upgradeSettings:
-#       maxSurge: 1
-#       strategy: SURGE
-#   autoscalingProfile: OPTIMIZE_UTILIZATION
-#   enableNodeAutoprovisioning: false
-  # resourceLimits:
-  # - maximum: '1000000000'
-  #   resourceType: cpu
-  # - maximum: '1000000000'
-  #   resourceType: memory
-  # - maximum: '1000000000'
-  #   resourceType: nvidia-tesla-t4
-  # - maximum: '1000000000'
-  #   resourceType: nvidia-tesla-a100
+autoscaling:
+  autoprovisioningNodePoolDefaults:
+    bootDiskKmsKey: ${kms_key_usc1}
+    diskSizeGb: 100
+    diskType: pd-standard
+    imageType: COS_CONTAINERD
+    management:
+      autoRepair: true
+      autoUpgrade: true
+      upgradeOptions: {}
+    oauthScopes:
+    - https://www.googleapis.com/auth/cloud-platform
+    serviceAccount: ${service_account}
+    shieldedInstanceConfig:
+      enableIntegrityMonitoring: true
+      enableSecureBoot: true
+    upgradeSettings:
+      maxSurge: 1
+      strategy: SURGE
+  autoscalingProfile: OPTIMIZE_UTILIZATION
+  enableNodeAutoprovisioning: true
+  resourceLimits:
+  - maximum: '10000'
+    minimum: '4'
+    resourceType: cpu
+  - maximum: '80000'
+    minimum: '16'
+    resourceType: memory
+  - maximum: '30'
+    resourceType: nvidia-a100-80gb
+  - maximum: '30'
+    resourceType: nvidia-l4
+  - maximum: '300'
+    resourceType: nvidia-tesla-t4
+  - maximum: '50'
+    resourceType: nvidia-tesla-a100
+  - maximum: '30'
+    resourceType: nvidia-tesla-k80
+  - maximum: '30'
+    resourceType: nvidia-tesla-p4
+  - maximum: '30'
+    resourceType: nvidia-tesla-p100
+  - maximum: '30'
+    resourceType: nvidia-tesla-v100
 binaryAuthorization: {}
+clusterIpv4Cidr: 10.0.0.0/11
 controlPlaneEndpointsConfig:
   dnsEndpointConfig:
     allowExternalTraffic: true
-  enhancedIngress:
-currentMasterVersion: 1.30.6-gke.1125000
-currentNodeCount: 3
-currentNodeVersion: 1.30.8-gke.1162000
+  ipEndpointsConfig:
+    authorizedNetworksConfig:
+      privateEndpointEnforcementEnabled: true
+    enablePublicEndpoint: true
+    enabled: true
+    globalAccess: true
+    privateEndpoint: 172.16.0.34
+    publicEndpoint: 35.232.11.123
+currentMasterVersion: 1.31.4-gke.1256000
+currentNodeCount: 2
+currentNodeVersion: 1.31.4-gke.1256000
 databaseEncryption:
   currentState: CURRENT_STATE_ENCRYPTED
   keyName: ${kms_key_usc1}
@@ -59,7 +80,7 @@ defaultMaxPodsConstraint:
   maxPodsPerNode: '110'
 enterpriseConfig:
   clusterTier: STANDARD
-initialClusterVersion: 1.30.8-gke.1162000
+initialClusterVersion: 1.31.4-gke.1256000
 initialNodeCount: 1
 ipAllocationPolicy:
   clusterSecondaryRangeName: gke-pods
@@ -68,13 +89,18 @@ ipAllocationPolicy:
   stackType: IPV4
   useIpAliases: true
 legacyAbac: {}
-location: us-central1-a
+location: us-central1
 locations:
 - us-central1-a
+- us-central1-b
+- us-central1-c
 loggingConfig:
   componentConfig:
     enableComponents:
     - SYSTEM_COMPONENTS
+    - APISERVER
+    - CONTROLLER_MANAGER
+    - SCHEDULER
     - WORKLOADS
 loggingService: logging.googleapis.com/kubernetes
 maintenancePolicy:
@@ -85,6 +111,7 @@ maintenancePolicy:
 masterAuth:
   clientCertificateConfig: {}
 masterAuthorizedNetworksConfig:
+  privateEndpointEnforcementEnabled: true
   cidrBlocks:
   - cidrBlock: 77.101.187.225/32
     displayName: Dave's Home
@@ -92,20 +119,26 @@ masterAuthorizedNetworksConfig:
     displayName: DJ
   enabled: true
   gcpPublicCidrsAccessEnabled: false
+meshCertificates:
+  enableCertificates: false
 monitoringConfig:
   advancedDatapathObservabilityConfig:
     enableMetrics: true
+    enableRelay: false
   componentConfig:
     enableComponents:
     - SYSTEM_COMPONENTS
-    - DAEMONSET
+    - STORAGE
+    - POD
     - DEPLOYMENT
     - STATEFULSET
-    - STORAGE
+    - DAEMONSET
     - HPA
-    - POD
-    # - CADVISOR
-    # - KUBELET
+    - CADVISOR
+    - KUBELET
+    - APISERVER
+    - SCHEDULER
+    - CONTROLLER_MANAGER
   managedPrometheusConfig:
     enabled: true
 monitoringService: monitoring.googleapis.com/kubernetes
@@ -113,114 +146,123 @@ name: hpc-1-standard-3
 network: hpc-1
 networkConfig:
   datapathProvider: ADVANCED_DATAPATH
+  defaultEnablePrivateNodes: true
   defaultSnatStatus: {}
   dnsConfig:
     clusterDns: CLOUD_DNS
-    clusterDnsDomain: cluster.local
     clusterDnsScope: CLUSTER_SCOPE
+  enableCiliumClusterwideNetworkPolicy: true
   enableIntraNodeVisibility: true
-  gatewayApiConfig:
-    channel: CHANNEL_STANDARD
   network: projects/lab-gke-se/global/networks/hpc-1
   serviceExternalIpsConfig: {}
   subnetwork: projects/lab-gke-se/regions/us-central1-a/subnetworks/hpc-1-cluster-3
 nodeConfig:
   bootDiskKmsKey: ${kms_key_usc1}
   diskSizeGb: 100
-  diskType: pd-balanced
+  diskType: pd-standard
+  effectiveCgroupMode: EFFECTIVE_CGROUP_MODE_V2
   imageType: COS_CONTAINERD
-  loggingConfig: {}
-  machineType: e2-medium
+  kubeletConfig:
+    insecureKubeletReadonlyPortEnabled: true
+  machineType: e2-standard-4
   metadata:
     disable-legacy-endpoints: 'true'
   oauthScopes:
-  - https://www.googleapis.com/auth/userinfo.email
   - https://www.googleapis.com/auth/cloud-platform
-  reservationAffinity:
-    consumeReservationType: NO_RESERVATION
   serviceAccount: ${service_account}
   shieldedInstanceConfig:
     enableIntegrityMonitoring: true
     enableSecureBoot: true
-  # taints:
-  # - effect: NO_SCHEDULE
-  #   key: cloud.google.com/gke-quick-remove
-  #   value: 'true'
   windowsNodeConfig: {}
   workloadMetadataConfig:
     mode: GKE_METADATA
 nodePoolDefaults:
   nodeConfigDefaults:
+    gcfsConfig:
+      enabled: true
     loggingConfig:
       variantConfig:
-        variant: DEFAULT
-    # nodeKubeletConfig:
-    #   insecureKubeletReadonlyPortEnabled: false
+        variant: MAX_THROUGHPUT
+    nodeKubeletConfig: {}
 nodePools:
 - autoscaling:
     enabled: true
-    locationPolicy: BALANCED
-    maxNodeCount: 1000
+    locationPolicy: ANY
+    totalMaxNodeCount: 32
   config:
     bootDiskKmsKey: ${kms_key_usc1}
     diskSizeGb: 100
     diskType: pd-balanced
+    effectiveCgroupMode: EFFECTIVE_CGROUP_MODE_V2
+    gvnic:
+      enabled: true
     imageType: COS_CONTAINERD
-    loggingConfig: {}
-    machineType: e2-small
+    kubeletConfig:
+      insecureKubeletReadonlyPortEnabled: true
+    labels:
+      billing-type: on-demand
+      resource-model: n2
+      resource-type: cpu
+    loggingConfig:
+      variantConfig:
+        variant: MAX_THROUGHPUT
+    machineType: n2-standard-16
     metadata:
       disable-legacy-endpoints: 'true'
     oauthScopes:
-    - https://www.googleapis.com/auth/userinfo.email
     - https://www.googleapis.com/auth/cloud-platform
-    reservationAffinity:
-      consumeReservationType: NO_RESERVATION
     serviceAccount: ${service_account}
     shieldedInstanceConfig:
       enableIntegrityMonitoring: true
       enableSecureBoot: true
-    taints:
-    - effect: NO_SCHEDULE
-      key: cloud.google.com/gke-quick-remove
-      value: 'true'
     windowsNodeConfig: {}
     workloadMetadataConfig:
       mode: GKE_METADATA
-  initialNodeCount: 0
   locations:
   - us-central1-a
+  - us-central1-b
+  - us-central1-c
   management:
     autoRepair: true
     autoUpgrade: true
   maxPodsConstraint:
-    maxPodsPerNode: '32'
-  name: pool-0
+    maxPodsPerNode: '110'
+  name: ondemand-node-1
   networkConfig:
     enablePrivateNodes: true
     podRange: gke-pods
-  podIpv4CidrSize: 26
+  podIpv4CidrSize: 24
   upgradeSettings:
     maxSurge: 1
     strategy: SURGE
-  version: 1.30.8-gke.1162000
+  version: 1.31.4-gke.1256000
 - autoscaling:
     enabled: true
-    locationPolicy: BALANCED
-    maxNodeCount: 1000
+    locationPolicy: ANY
+    totalMaxNodeCount: 750
   config:
     bootDiskKmsKey: ${kms_key_usc1}
     diskSizeGb: 100
     diskType: pd-balanced
+    effectiveCgroupMode: EFFECTIVE_CGROUP_MODE_V2
+    gvnic:
+      enabled: true
     imageType: COS_CONTAINERD
-    loggingConfig: {}
-    machineType: e2-medium
+    kubeletConfig:
+      insecureKubeletReadonlyPortEnabled: true
+    labels:
+      billing-type: spot
+      resource-model: n2
+      resource-type: cpu
+    loggingConfig:
+      variantConfig:
+        variant: MAX_THROUGHPUT
+    machineType: n2-standard-64
     metadata:
       disable-legacy-endpoints: 'true'
     oauthScopes:
-    - https://www.googleapis.com/auth/userinfo.email
     - https://www.googleapis.com/auth/cloud-platform
-    reservationAffinity:
-      consumeReservationType: NO_RESERVATION
+    preemptible: true
     serviceAccount: ${service_account}
     shieldedInstanceConfig:
       enableIntegrityMonitoring: true
@@ -230,245 +272,45 @@ nodePools:
       mode: GKE_METADATA
   locations:
   - us-central1-a
+  - us-central1-b
+  - us-central1-c
   management:
     autoRepair: true
     autoUpgrade: true
   maxPodsConstraint:
-    maxPodsPerNode: '32'
-  name: pool-1
+    maxPodsPerNode: '110'
+  name: spot-nodes-1
   networkConfig:
     enablePrivateNodes: true
     podRange: gke-pods
-  podIpv4CidrSize: 26
+  podIpv4CidrSize: 24
   upgradeSettings:
     maxSurge: 1
     strategy: SURGE
-  version: 1.30.8-gke.1162000
-- autoscaling:
-    enabled: true
-    locationPolicy: BALANCED
-    maxNodeCount: 1000
-  config:
-    bootDiskKmsKey: ${kms_key_usc1}
-    diskSizeGb: 100
-    diskType: pd-balanced
-    imageType: COS_CONTAINERD
-    loggingConfig: {}
-    machineType: e2-standard-2
-    metadata:
-      disable-legacy-endpoints: 'true'
-    oauthScopes:
-    - https://www.googleapis.com/auth/userinfo.email
-    - https://www.googleapis.com/auth/cloud-platform
-    reservationAffinity:
-      consumeReservationType: NO_RESERVATION
-    serviceAccount: ${service_account}
-    shieldedInstanceConfig:
-      enableIntegrityMonitoring: true
-      enableSecureBoot: true
-    windowsNodeConfig: {}
-    workloadMetadataConfig:
-      mode: GKE_METADATA
-  locations:
-  - us-central1-a
-  management:
-    autoRepair: true
-    autoUpgrade: true
-  maxPodsConstraint:
-    maxPodsPerNode: '32'
-  name: pool-2
-  networkConfig:
-    enablePrivateNodes: true
-    podRange: gke-pods
-  podIpv4CidrSize: 26
-  upgradeSettings:
-    maxSurge: 1
-    strategy: SURGE
-  version: 1.30.8-gke.1162000
-- autoscaling:
-    enabled: true
-    locationPolicy: BALANCED
-    maxNodeCount: 1000
-  config:
-    bootDiskKmsKey: ${kms_key_usc1}
-    diskSizeGb: 100
-    diskType: pd-balanced
-    imageType: COS_CONTAINERD
-    loggingConfig: {}
-    machineType: e2-standard-4
-    metadata:
-      disable-legacy-endpoints: 'true'
-    oauthScopes:
-    - https://www.googleapis.com/auth/userinfo.email
-    - https://www.googleapis.com/auth/cloud-platform
-    reservationAffinity:
-      consumeReservationType: NO_RESERVATION
-    serviceAccount: ${service_account}
-    shieldedInstanceConfig:
-      enableIntegrityMonitoring: true
-      enableSecureBoot: true
-    windowsNodeConfig: {}
-    workloadMetadataConfig:
-      mode: GKE_METADATA
-  locations:
-  - us-central1-a
-  management:
-    autoRepair: true
-    autoUpgrade: true
-  maxPodsConstraint:
-    maxPodsPerNode: '32'
-  name: pool-3
-  networkConfig:
-    enablePrivateNodes: true
-    podRange: gke-pods
-  podIpv4CidrSize: 26
-  upgradeSettings:
-    maxSurge: 1
-    strategy: SURGE
-  version: 1.30.8-gke.1162000
-- autoscaling:
-    enabled: true
-    locationPolicy: BALANCED
-    maxNodeCount: 1000
-  config:
-    bootDiskKmsKey: ${kms_key_usc1}
-    diskSizeGb: 100
-    diskType: pd-balanced
-    imageType: COS_CONTAINERD
-    loggingConfig: {}
-    machineType: e2-standard-8
-    metadata:
-      disable-legacy-endpoints: 'true'
-    oauthScopes:
-    - https://www.googleapis.com/auth/userinfo.email
-    - https://www.googleapis.com/auth/cloud-platform
-    reservationAffinity:
-      consumeReservationType: NO_RESERVATION
-    serviceAccount: ${service_account}
-    shieldedInstanceConfig:
-      enableIntegrityMonitoring: true
-      enableSecureBoot: true
-    windowsNodeConfig: {}
-    workloadMetadataConfig:
-      mode: GKE_METADATA
-  locations:
-  - us-central1-a
-  management:
-    autoRepair: true
-    autoUpgrade: true
-  maxPodsConstraint:
-    maxPodsPerNode: '32'
-  name: pool-4
-  networkConfig:
-    enablePrivateNodes: true
-    podRange: gke-pods
-  podIpv4CidrSize: 26
-  upgradeSettings:
-    maxSurge: 1
-    strategy: SURGE
-  version: 1.30.8-gke.1162000
-- autoscaling:
-    enabled: true
-    locationPolicy: BALANCED
-    maxNodeCount: 1000
-  config:
-    bootDiskKmsKey: ${kms_key_usc1}
-    diskSizeGb: 100
-    diskType: pd-balanced
-    imageType: COS_CONTAINERD
-    loggingConfig: {}
-    machineType: e2-standard-16
-    metadata:
-      disable-legacy-endpoints: 'true'
-    oauthScopes:
-    - https://www.googleapis.com/auth/userinfo.email
-    - https://www.googleapis.com/auth/cloud-platform
-    reservationAffinity:
-      consumeReservationType: NO_RESERVATION
-    serviceAccount: ${service_account}
-    shieldedInstanceConfig:
-      enableIntegrityMonitoring: true
-      enableSecureBoot: true
-    windowsNodeConfig: {}
-    workloadMetadataConfig:
-      mode: GKE_METADATA
-  locations:
-  - us-central1-a
-  management:
-    autoRepair: true
-    autoUpgrade: true
-  maxPodsConstraint:
-    maxPodsPerNode: '32'
-  name: pool-5
-  networkConfig:
-    enablePrivateNodes: true
-    podRange: gke-pods
-  podIpv4CidrSize: 26
-  upgradeSettings:
-    maxSurge: 1
-    strategy: SURGE
-  version: 1.30.8-gke.1162000
-- autoscaling:
-    enabled: true
-    locationPolicy: BALANCED
-    maxNodeCount: 1000
-  config:
-    bootDiskKmsKey: ${kms_key_usc1}
-    diskSizeGb: 100
-    diskType: pd-balanced
-    imageType: COS_CONTAINERD
-    loggingConfig: {}
-    machineType: e2-standard-32
-    metadata:
-      disable-legacy-endpoints: 'true'
-    oauthScopes:
-    - https://www.googleapis.com/auth/userinfo.email
-    - https://www.googleapis.com/auth/cloud-platform
-    reservationAffinity:
-      consumeReservationType: NO_RESERVATION
-    serviceAccount: ${service_account}
-    shieldedInstanceConfig:
-      enableIntegrityMonitoring: true
-      enableSecureBoot: true
-    windowsNodeConfig: {}
-    workloadMetadataConfig:
-      mode: GKE_METADATA
-  locations:
-  - us-central1-a
-  management:
-    autoRepair: true
-    autoUpgrade: true
-  maxPodsConstraint:
-    maxPodsPerNode: '32'
-  name: pool-6
-  networkConfig:
-    enablePrivateNodes: true
-    podRange: gke-pods
-  podIpv4CidrSize: 26
-  upgradeSettings:
-    maxSurge: 1
-    strategy: SURGE
-  version: 1.30.8-gke.1162000
+  version: 1.31.4-gke.1256000
 notificationConfig:
   pubsub: {}
 privateClusterConfig:
   enablePrivateNodes: true
+  masterGlobalAccessConfig:
+    enabled: true
   privateEndpointSubnetwork: hpc-1-private-3
   # masterIpv4CidrBlock: 10.200.3.0/28
-
 rbacBindingConfig:
   enableInsecureBindingSystemAuthenticated: true
   enableInsecureBindingSystemUnauthenticated: true
 releaseChannel:
   channel: REGULAR
+resourceLabels:
+  goog-terraform-provisioned: 'true'
+secretManagerConfig:
+  enabled: true
 securityPostureConfig:
-  mode: DISABLED
-  vulnerabilityMode: VULNERABILITY_DISABLED
+  mode: BASIC
+  vulnerabilityMode: VULNERABILITY_MODE_UNSPECIFIED
 shieldedNodes:
   enabled: true
 subnetwork: hpc-1-cluster-3
-verticalPodAutoscaling:
-  enabled: true
 workloadIdentityConfig:
   workloadPool: lab-gke-se.svc.id.goog
-zone: us-central1-a
+zone: us-central1
