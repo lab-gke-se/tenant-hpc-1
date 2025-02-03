@@ -50,7 +50,7 @@ controlPlaneEndpointsConfig:
   enhancedIngress:
 currentMasterVersion: 1.30.6-gke.1125000
 currentNodeCount: 3
-currentNodeVersion: 1.30.6-gke.1125000
+currentNodeVersion: 1.30.8-gke.1162000
 databaseEncryption:
   currentState: CURRENT_STATE_ENCRYPTED
   keyName: ${kms_key_usc1}
@@ -59,7 +59,7 @@ defaultMaxPodsConstraint:
   maxPodsPerNode: '110'
 enterpriseConfig:
   clusterTier: STANDARD
-initialClusterVersion: 1.30.6-gke.1125000
+initialClusterVersion: 1.30.8-gke.1162000
 initialNodeCount: 1
 ipAllocationPolicy:
   clusterSecondaryRangeName: gke-pods
@@ -88,6 +88,8 @@ masterAuthorizedNetworksConfig:
   cidrBlocks:
   - cidrBlock: 77.101.187.225/32
     displayName: Dave's Home
+  - cidrBlock: 143.58.196.158/32
+    displayName: DJ
   enabled: true
   gcpPublicCidrsAccessEnabled: false
 monitoringConfig:
@@ -200,7 +202,7 @@ nodePools:
   upgradeSettings:
     maxSurge: 1
     strategy: SURGE
-  version: 1.30.6-gke.1125000
+  version: 1.30.8-gke.1162000
 - autoscaling:
     enabled: true
     locationPolicy: BALANCED
@@ -241,7 +243,7 @@ nodePools:
   upgradeSettings:
     maxSurge: 1
     strategy: SURGE
-  version: 1.30.6-gke.1125000
+  version: 1.30.8-gke.1162000
 - autoscaling:
     enabled: true
     locationPolicy: BALANCED
@@ -282,7 +284,7 @@ nodePools:
   upgradeSettings:
     maxSurge: 1
     strategy: SURGE
-  version: 1.30.6-gke.1125000
+  version: 1.30.8-gke.1162000
 - autoscaling:
     enabled: true
     locationPolicy: BALANCED
@@ -323,7 +325,7 @@ nodePools:
   upgradeSettings:
     maxSurge: 1
     strategy: SURGE
-  version: 1.30.6-gke.1125000
+  version: 1.30.8-gke.1162000
 - autoscaling:
     enabled: true
     locationPolicy: BALANCED
@@ -364,7 +366,7 @@ nodePools:
   upgradeSettings:
     maxSurge: 1
     strategy: SURGE
-  version: 1.30.6-gke.1125000
+  version: 1.30.8-gke.1162000
 - autoscaling:
     enabled: true
     locationPolicy: BALANCED
@@ -405,7 +407,7 @@ nodePools:
   upgradeSettings:
     maxSurge: 1
     strategy: SURGE
-  version: 1.30.6-gke.1125000
+  version: 1.30.8-gke.1162000
 - autoscaling:
     enabled: true
     locationPolicy: BALANCED
@@ -446,7 +448,7 @@ nodePools:
   upgradeSettings:
     maxSurge: 1
     strategy: SURGE
-  version: 1.30.6-gke.1125000
+  version: 1.30.8-gke.1162000
 notificationConfig:
   pubsub: {}
 privateClusterConfig:
