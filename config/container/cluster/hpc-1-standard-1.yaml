@@ -50,7 +50,7 @@ controlPlaneEndpointsConfig:
   enhancedIngress:
 currentMasterVersion: 1.30.6-gke.1125000
 currentNodeCount: 3
-currentNodeVersion: 1.30.6-gke.1125000
+currentNodeVersion: 1.30.8-gke.1162000
 databaseEncryption:
   currentState: CURRENT_STATE_ENCRYPTED
   keyName: ${kms_key}
@@ -59,7 +59,7 @@ defaultMaxPodsConstraint:
   maxPodsPerNode: '110'
 enterpriseConfig:
   clusterTier: STANDARD
-initialClusterVersion: 1.30.6-gke.1125000
+initialClusterVersion: 1.30.8-gke.1162000
 initialNodeCount: 1
 ipAllocationPolicy:
   clusterSecondaryRangeName: gke-pods
@@ -208,7 +208,7 @@ nodePools:
   upgradeSettings:
     maxSurge: 1
     strategy: SURGE
-  version: 1.30.6-gke.1125000
+  version: 1.30.8-gke.1162000
 - autoscaling:
     enabled: false
     locationPolicy: BALANCED
@@ -251,7 +251,7 @@ nodePools:
   upgradeSettings:
     maxSurge: 1
     strategy: SURGE
-  version: 1.30.6-gke.1125000
+  version: 1.30.8-gke.1162000
 - autoscaling:
     enabled: false
     locationPolicy: BALANCED
@@ -294,7 +294,7 @@ nodePools:
   upgradeSettings:
     maxSurge: 1
     strategy: SURGE
-  version: 1.30.6-gke.1125000
+  version: 1.30.8-gke.1162000
 - autoscaling:
     enabled: false
     locationPolicy: BALANCED
@@ -337,7 +337,7 @@ nodePools:
   upgradeSettings:
     maxSurge: 1
     strategy: SURGE
-  version: 1.30.6-gke.1125000
+  version: 1.30.8-gke.1162000
 - autoscaling:
     enabled: false
     locationPolicy: BALANCED
@@ -380,7 +380,7 @@ nodePools:
   upgradeSettings:
     maxSurge: 1
     strategy: SURGE
-  version: 1.30.6-gke.1125000
+  version: 1.30.8-gke.1162000
 - autoscaling:
     enabled: false
     locationPolicy: BALANCED
@@ -423,7 +423,7 @@ nodePools:
   upgradeSettings:
     maxSurge: 1
     strategy: SURGE
-  version: 1.30.6-gke.1125000
+  version: 1.30.8-gke.1162000
 - autoscaling:
     enabled: false
     locationPolicy: BALANCED
@@ -466,7 +466,7 @@ nodePools:
   upgradeSettings:
     maxSurge: 1
     strategy: SURGE
-  version: 1.30.6-gke.1125000
+  version: 1.30.8-gke.1162000
 notificationConfig:
   pubsub: {}
 privateClusterConfig:
